@@ -36,7 +36,7 @@
 					<tr>
 						<td>3</td>
 						<td><a href="">세 번째 글입니다.</a></td>
-						<td>안대혁</td>
+						<td>김준선</td>
 						<td>3</td>
 						<td>2015-10-11 12:04:20</td>
 						<td><a href="" class="del">삭제</a></td>
@@ -44,7 +44,7 @@
 					<tr>
 						<td>2</td>
 						<td><a href="">두 번째 글입니다.</a></td>
-						<td>안대혁</td>
+						<td>김준선</td>
 						<td>3</td>
 						<td>2015-10-02 12:04:12</td>
 						<td><a href="" class="del">삭제</a></td>
@@ -52,7 +52,7 @@
 					<tr>
 						<td>1</td>
 						<td><a href="">첫 번째 글입니다.</a></td>
-						<td>안대혁</td>
+						<td>김준선</td>
 						<td>3</td>
 						<td>2015-09-25 07:24:32</td>
 						<td><a href="" class="del">삭제</a></td>
@@ -65,7 +65,7 @@
 		</div>
 		<div id="navigation">
 			<ul>
-				<li><a href="">안대혁</a></li>
+				<li><a href="">김준선</a></li>
 				<li><a href="">방명록</a></li>
 				<li><a href="">게시판</a></li>
 			</ul>
