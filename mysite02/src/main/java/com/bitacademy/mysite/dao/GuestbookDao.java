@@ -105,7 +105,7 @@ public class GuestbookDao {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Long no = rs.getLong(1);
+				int no = rs.getInt(1);
 				String name = rs.getString(2);
 				String contents = rs.getString(3);
 				String regDate = rs.getString(4);

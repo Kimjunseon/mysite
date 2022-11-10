@@ -1,15 +1,16 @@
 package com.bitacademy.mysite.vo;
 
 public class GuestbookVo {
-	private Long no;
+	private long no;
 	private String name;
 	private String contents;
 	private String password;
 	private String regDate;
-	public Long getNo() {
+	
+	public long getNo() {
 		return no;
 	}
-	public void setNo(Long no) {
+	public void setNo(long no) {
 		this.no = no;
 	}
 	public String getName() {
