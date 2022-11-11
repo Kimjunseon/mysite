@@ -66,16 +66,8 @@
 				</ul>
 			</div>
 		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="${pageContext.request.contextPath }">김준선</a></li>
-				<li><a href="${pageContext.request.contextPath }/gb">방명록</a></li>
-				<li><a href="${pageContext.request.contextPath }/board">게시판</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022</p>
-		</div>
+		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"/>
 	</div>
 </body>
 </html>

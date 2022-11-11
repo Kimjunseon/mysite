@@ -8,47 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bitacademy.mysite.vo.BoardVo;
 import com.bitacademy.mysite.vo.GuestbookVo;
 
-
-public class GuestbookDao {
-	public Boolean deleteByNoAndPassword(Long no, String password) {
-		boolean result = false;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql = "delete from guestbook where no = ? and password = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, no);
-			pstmt.setString(2, password);
-			
-			int count = pstmt.executeUpdate();
-			
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;		
-	}
+public class BoardDao {
 	
-	public Boolean insert(GuestbookVo vo) {
+	public Boolean newBoardInsert(BoardVo vo) {
 		boolean result = false;
 		
 		Connection conn = null;
@@ -57,11 +22,16 @@ public class GuestbookDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into guestbook values(null, ?, ?, ?, now())";
+			String sql = "insert into board values(null, ?, ?, ?, now(), ?, ? ,?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getContents());
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setLong(3, vo.getHit());
+			pstmt.setString(4, vo.getRegDate());
+			pstmt.setLong(5, vo.getGroupNo());
+			pstmt.setLong(6, vo.getOrderNo());
+			pstmt.setLong(7, vo.getDepth());
+			pstmt.setLong(8, vo.getUserNo());
 			
 			int count = pstmt.executeUpdate();
 			
@@ -87,8 +57,8 @@ public class GuestbookDao {
 		return result;
 	}
 	
-	public List<GuestbookVo> findAll() {
-		List<GuestbookVo> result = new ArrayList<>();
+	public List<BoardVo> findAll() {
+		List<BoardVo> result = new ArrayList<>();
 	
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -97,25 +67,27 @@ public class GuestbookDao {
 		try {
 			conn = getConnection();
 			
-			String sql =
-				"    select no, name, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s')" + 
-				"      from guestbook" + 
-				"  order by reg_date desc";
+			String sql =			
+					" select a.no, a.title, b.name, a.hit, date_format(a.reg_date, '%Y/%m/%d %H:%i:%s')" +
+					"   from board a, user b" +
+					"  where a.no = b.no";
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int no = rs.getInt(1);
-				String name = rs.getString(2);
-				String contents = rs.getString(3);
-				String regDate = rs.getString(4);
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				String name = rs.getString(3);
+				Long hit = rs.getLong(4);
+				String regDate = rs.getString(5);
 				
-				GuestbookVo vo = new GuestbookVo();
+				BoardVo vo = new BoardVo();
 				vo.setNo(no);
+				vo.setTitle(title);
 				vo.setName(name);
-				vo.setContents(contents);
+				vo.setHit(hit);
 				vo.setRegDate(regDate);
-				
 				result.add(vo);
 			}
 			
@@ -156,4 +128,6 @@ public class GuestbookDao {
 		
 		return conn;
 	}
+
+
 }

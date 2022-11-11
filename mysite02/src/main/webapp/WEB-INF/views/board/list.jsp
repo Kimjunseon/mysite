@@ -1,21 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
 		<div id="header">
 			<h1>MySite</h1>
 			<ul>
-				<li><a href="">로그인</a><li>
-				<li><a href="">회원가입</a><li>
-				<li><a href="">회원정보수정</a><li>
-				<li><a href="">로그아웃</a><li>
-				<li>님 안녕하세요 ^^;</li>
+				<c:choose>
+					<c:when test="${empty authUser }">
+						<li><a href="${pageContext.request.contextPath }/user?a=loginform">로그인</a><li>
+						<li><a href="${pageContext.request.contextPath }/user?a=joinform">회원가입</a><li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="${pageContext.request.contextPath }/user?a=updateform">회원정보수정</a><li>
+						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
+						<li>${authUser.name } 님 안녕하세요 ^^;</li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 		<div id="content">
@@ -32,47 +41,46 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					<tr>
-						<td>3</td>
-						<td><a href="">세 번째 글입니다.</a></td>
-						<td>김준선</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="">두 번째 글입니다.</a></td>
-						<td>김준선</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="">첫 번째 글입니다.</a></td>
-						<td>김준선</td>
-						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					<c:set var='count' value='${fn:length(list) }' />
+					<c:forEach items='${list }' var='vo' varStatus='status'>				
+						<tr>
+							<td>${count-status.index }</td>
+							<td><a href="${pageContext.request.contextPath }/board?a=view">${vo.title }</a></td>
+							<td>${vo.name }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>
+							<td><a href="" class="del">삭제</a></td>
+						</tr>
+					</c:forEach>
 				</table>
-				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
-				</div>				
+				
+				<!-- pager 추가 -->
+				<div class="pager">
+					<ul>
+						<li><a href="">◀</a></li>
+						<li><a href="">1</a></li>
+						<li class="selected">2</li>
+						<li><a href="">3</a></li>
+						<li>4</li>
+						<li>5</li>
+						<li><a href="">▶</a></li>
+					</ul>
+				</div>					
+				<!-- pager 추가 -->
+				<c:choose>
+					<c:when test="${empty authUser }">
+					</c:when>
+					<c:otherwise>
+						<div class="bottom">
+							<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+						</div>
+					</c:otherwise>
+				</c:choose>			
 			</div>
 		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="">김준선</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2015, 2016, 2017, 2018</p>
-		</div>
+		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"/>
 	</div>
 </body>
 </html>
