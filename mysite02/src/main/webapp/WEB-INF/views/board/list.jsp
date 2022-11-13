@@ -42,15 +42,20 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>
+					
 					<c:set var='count' value='${fn:length(list) }' />
 					<c:forEach items='${list }' var='vo' varStatus='status'>				
 						<tr>
 							<td>${count-status.index }</td>
-							<td><a href="${pageContext.request.contextPath }/board?a=view">${vo.title }</a></td>
+							<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><a href="" class="del">삭제</a></td>
+							<td>
+								<c:if test="${authUser.name eq vo.name }">
+									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
+								</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -68,15 +73,11 @@
 					</ul>
 				</div>					
 				<!-- pager 추가 -->
-				<c:choose>
-					<c:when test="${empty authUser }">
-					</c:when>
-					<c:otherwise>
+				<c:if test="${not empty authUser }">
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
 						</div>
-					</c:otherwise>
-				</c:choose>			
+				</c:if>>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>

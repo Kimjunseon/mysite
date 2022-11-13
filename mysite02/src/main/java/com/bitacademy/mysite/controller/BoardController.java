@@ -26,27 +26,35 @@ public class BoardController extends HttpServlet {
 		} else if("write".equals(action)) {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			String hit = request.getParameter("hit");
-			String gn = request.getParameter("groupno");
-			String on = request.getParameter("orderno");
-			String depth = request.getParameter("depth");
-			String un = request.getParameter("userno");
-			
-			System.out.println("1" + title);
-			System.out.println("2" + content);
-			System.out.println("3" + hit);
-			
+			String userno = request.getParameter("userno");
+
 			BoardVo vo = new BoardVo();
 			vo.setTitle(title);
 			vo.setContent(content);
+			vo.setUserNo(Integer.parseInt(userno));
+			
+			new BoardDao().newBoardInsert(vo);
+			
 			response.sendRedirect(request.getContextPath() + "/board");
 			
+			
+			
 		} else if("view".equals(action)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/view.jsp");
-			rd.forward(request, response);
+			String no = request.getParameter("no");
+			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
+			request.setAttribute("boardVo", vo);
+			request.getRequestDispatcher("/WEB-INF/views/board/view.jsp").forward(request, response);
+			
 		} else if("modify".equals(action)) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp");
 			rd.forward(request, response);
+			
+		} else if("delete".equals(action)) {
+				String no = request.getParameter("no");
+				System.out.println(no);
+				new BoardDao().deleteByUser(Integer.parseInt(no));
+				response.sendRedirect(request.getContextPath() + "/board");
+			
 		} else {
 			List<BoardVo> list = new BoardDao().findAll(); 
 			request.setAttribute("list", list);

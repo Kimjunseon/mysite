@@ -22,16 +22,11 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into board values(null, ?, ?, ?, now(), ?, ? ,?, ?)";
+			String sql = "insert into board values(null, ?, ?, 0, now(), 1, 1, 0, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setLong(3, vo.getHit());
-			pstmt.setString(4, vo.getRegDate());
-			pstmt.setLong(5, vo.getGroupNo());
-			pstmt.setLong(6, vo.getOrderNo());
-			pstmt.setLong(7, vo.getDepth());
-			pstmt.setLong(8, vo.getUserNo());
+			pstmt.setInt(3, vo.getUserNo());
 			
 			int count = pstmt.executeUpdate();
 			
@@ -68,19 +63,25 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql =			
-					" select a.no, a.title, b.name, a.hit, date_format(a.reg_date, '%Y/%m/%d %H:%i:%s')" +
-					"   from board a, user b" +
-					"  where a.no = b.no";
+					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s')" +
+					"     from user a, board b"  +
+					"    where a.no = b.user_no" +
+					" order by b.no desc";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Long no = rs.getLong(1);
+				int no = rs.getInt(1);
 				String title = rs.getString(2);
 				String name = rs.getString(3);
-				Long hit = rs.getLong(4);
+				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
+//				int groupNo = rs.getInt(6);
+//				int orderNo = rs.getInt(7);
+//				int depth = rs.getInt(8);
+//				int userNo = rs.getInt(9);
+//				String content = rs.getString(10);;
 				
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -88,6 +89,11 @@ public class BoardDao {
 				vo.setName(name);
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
+//				vo.setGroupNo(groupNo);
+//				vo.setOrderNo(orderNo);
+//				vo.setDepth(depth);
+//				vo.setUserNo(userNo);
+//				vo.setContent(content);
 				result.add(vo);
 			}
 			
@@ -113,6 +119,86 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	public boolean deleteByUser(int no) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "delete from board where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			int count = pstmt.executeUpdate();
+			
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;		
+		
+	}
+	
+	public BoardVo findTitle(int no) {
+		BoardVo result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "select title, content from board where no= ? ";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				String title = rs.getString(1);
+				String content = rs.getString(2);
+				result = new BoardVo();
+				result.setTitle(title);
+				result.setContent(content);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error : " + e);
+		} finally {
+			try {
+				if (rs != null) { // 닫는 순서는 생성 역순으로
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+	
 	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
