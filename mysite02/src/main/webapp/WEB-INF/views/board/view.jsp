@@ -48,7 +48,15 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
-					<a href="${pageContext.request.contextPath }/board?a=modify">글수정</a>
+					<c:choose>
+						<c:when test="${empty authUser }"> 
+						</c:when>
+						<c:when test="${authUser.no == boardVo.userNo }">
+							<a href="${pageContext.request.contextPath }/board?a=modify&no=${param.no }">글수정</a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 					<a href="">답글</a>
 				</div>
 			</div>

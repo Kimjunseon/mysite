@@ -162,18 +162,20 @@ public class BoardDao {
 		
 		try {
 			conn = getConnection();
-			String sql = "select title, content from board where no= ? ";
+			String sql = "select user_no, title, content from board where no= ? "; // user_no, 추가함
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setLong(1, no);
-
+			
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
-
-				String title = rs.getString(1);
-				String content = rs.getString(2);
+				
+				Integer un = rs.getInt(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
 				result = new BoardVo();
+				result.setUserNo(un);
 				result.setTitle(title);
 				result.setContent(content);
 			}
@@ -185,6 +187,41 @@ public class BoardDao {
 				if (rs != null) { // 닫는 순서는 생성 역순으로
 					rs.close();
 				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+	
+	public boolean update(String title, String content, int no) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "update board" + 
+			               " set title = ?, content = ?" +
+					     " where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, no);
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("Error : " + e);
+		} finally {
+			try {
 				if (pstmt != null) {
 					pstmt.close();
 				}

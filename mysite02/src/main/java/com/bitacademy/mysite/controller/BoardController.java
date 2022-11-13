@@ -37,8 +37,6 @@ public class BoardController extends HttpServlet {
 			
 			response.sendRedirect(request.getContextPath() + "/board");
 			
-			
-			
 		} else if("view".equals(action)) {
 			String no = request.getParameter("no");
 			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
@@ -46,12 +44,24 @@ public class BoardController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/board/view.jsp").forward(request, response);
 			
 		} else if("modify".equals(action)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp");
-			rd.forward(request, response);
+			String no = request.getParameter("no");
+			System.out.println("ch1: " + no);
+			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
+			request.setAttribute("boardVo", vo);
+			request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(request, response);
+
+		} else if("executeModify".equals(action)) {
+			String no = request.getParameter("no");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			System.out.println("ch2: " + no);
+			System.out.println("ch2: " + title);
+			System.out.println("ch2: " + content);
+			new BoardDao().update(title, content, Integer.parseInt(no));
+			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else if("delete".equals(action)) {
 				String no = request.getParameter("no");
-				System.out.println(no);
 				new BoardDao().deleteByUser(Integer.parseInt(no));
 				response.sendRedirect(request.getContextPath() + "/board");
 			
