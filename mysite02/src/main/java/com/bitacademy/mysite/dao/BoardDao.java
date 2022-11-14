@@ -22,7 +22,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into board values(null, ?, ?, 0, now(), 1, 1, 0, ?)";
+			String sql = "insert into board values (null, ?, ?, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
@@ -63,7 +63,7 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql =			
-					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s')" +
+					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.content" +
 					"     from user a, board b"  +
 					"    where a.no = b.user_no" +
 					" order by b.no desc";
@@ -77,11 +77,12 @@ public class BoardDao {
 				String name = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
+				String content = rs.getString(6);
 //				int groupNo = rs.getInt(6);
 //				int orderNo = rs.getInt(7);
 //				int depth = rs.getInt(8);
 //				int userNo = rs.getInt(9);
-//				String content = rs.getString(10);;
+
 				
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -89,11 +90,12 @@ public class BoardDao {
 				vo.setName(name);
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
+				vo.setContent(content);
 //				vo.setGroupNo(groupNo);
 //				vo.setOrderNo(orderNo);
 //				vo.setDepth(depth);
 //				vo.setUserNo(userNo);
-//				vo.setContent(content);
+
 				result.add(vo);
 			}
 			

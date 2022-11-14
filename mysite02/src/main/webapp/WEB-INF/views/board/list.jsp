@@ -57,6 +57,10 @@
 								</c:if>
 							</td>
 						</tr>
+						<tr>
+							<td>${vo.content }</td>
+							<td><a href="${pageContext.request.contextPath }/board?a=replyform" >|답글|</a></td>
+						</tr>
 					</c:forEach>
 				</table>
 				

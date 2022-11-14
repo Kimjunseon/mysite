@@ -50,7 +50,9 @@ public class BoardController extends HttpServlet {
 			
 		} else if("modify".equals(action)) {
 			String no = request.getParameter("no");
+			String user = request.getParameter("userno");
 			System.out.println("ch1: " + no);
+			System.out.println("ch1: " + user);
 			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
 			request.setAttribute("boardVo", vo);
 			request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(request, response);
@@ -69,6 +71,12 @@ public class BoardController extends HttpServlet {
 				String no = request.getParameter("no");
 				new BoardDao().deleteByUser(Integer.parseInt(no));
 				response.sendRedirect(request.getContextPath() + "/board");
+			
+		} else if("replyform".equals(action)) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp");
+			rd.forward(request, response);
+			
+		} else if("reply".equals(action)) {
 			
 		} else {
 			List<BoardVo> list = new BoardDao().findAll(); 
