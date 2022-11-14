@@ -77,7 +77,7 @@
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
 						</div>
-				</c:if>>
+				</c:if>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>

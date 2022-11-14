@@ -57,7 +57,14 @@
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-					<a href="">답글</a>
+					<c:choose>
+						<c:when test="${empty authUser }">
+							<a href="${pageContext.request.contextPath }/user?a=loginform">답글</a>
+						</c:when>
+						<c:otherwise>
+							<a href="">답글</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

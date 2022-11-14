@@ -236,6 +236,39 @@ public class BoardDao {
 		return result;
 	}
 	
+	public boolean updateHit(BoardVo vo2) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "update board" + 
+					       " set hit = hit + 1" +
+					     " where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo2.getNo());
+		
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("Error : " + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+	
 	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
