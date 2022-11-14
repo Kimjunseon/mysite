@@ -58,8 +58,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td>${vo.content }</td>
-							<td><a href="${pageContext.request.contextPath }/board?a=replyform" >|답글|</a></td>
+							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
+							<td><a href="${pageContext.request.contextPath }/board?a=replyform">${vo.content }</a></td>
 						</tr>
 					</c:forEach>
 				</table>
