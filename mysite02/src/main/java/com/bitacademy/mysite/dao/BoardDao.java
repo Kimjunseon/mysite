@@ -52,6 +52,44 @@ public class BoardDao {
 		return result;
 	}
 	
+	public Boolean replyInsert(BoardVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "insert into board values (null, '', ?, 0, now(), ?, ?, 1, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getContent());
+			pstmt.setInt(2, vo.getGroupNo());
+			pstmt.setInt(3, vo.getOrderNo());
+			pstmt.setInt(4, vo.getUserNo());
+			
+			int count = pstmt.executeUpdate();
+			
+			//5. 결과 처리
+			result = count == 1;
+			
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	public List<BoardVo> findAll() {
 		List<BoardVo> result = new ArrayList<>();
 	

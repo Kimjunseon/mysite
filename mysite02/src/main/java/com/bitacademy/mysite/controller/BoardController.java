@@ -68,15 +68,49 @@ public class BoardController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else if("delete".equals(action)) {
-				String no = request.getParameter("no");
-				new BoardDao().deleteByUser(Integer.parseInt(no));
-				response.sendRedirect(request.getContextPath() + "/board");
+			String no = request.getParameter("no");
+			new BoardDao().deleteByUser(Integer.parseInt(no));
+			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else if("replyform".equals(action)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp");
-			rd.forward(request, response);
+			String no = request.getParameter("no");
+			
+			String content = request.getParameter("content");
+			String gno = request.getParameter("groupno");
+			String ono = request.getParameter("orderno");
+			String uno = request.getParameter("userno");
+			
+			System.out.println("ch3: " +content);
+			System.out.println("ch3: " +gno);
+			System.out.println("ch3: " +ono);
+			System.out.println("ch3: " +uno);
+			
+			System.out.println("ch3: " + no);
+			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
+			request.setAttribute("boardVo", vo);
+			request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp").forward(request, response);
 			
 		} else if("reply".equals(action)) {
+			String no = request.getParameter("no");
+			String content = request.getParameter("content");
+			String gno = request.getParameter("groupno");
+			String ono = request.getParameter("orderno");
+			String uno = request.getParameter("userno");
+			
+			System.out.println(no);
+			System.out.println(content);
+			System.out.println(gno);
+			System.out.println(ono);
+			System.out.println(uno);
+			
+//			BoardVo vo = new BoardVo();
+//			vo.setContent(content);
+//			vo.setGroupNo(Integer.parseInt(gno));
+//			vo.setOrderNo(Integer.parseInt(ono));
+//			vo.setUserNo(Integer.parseInt(uno));
+//			new BoardDao().replyInsert(vo);
+			
+			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else {
 			List<BoardVo> list = new BoardDao().findAll(); 

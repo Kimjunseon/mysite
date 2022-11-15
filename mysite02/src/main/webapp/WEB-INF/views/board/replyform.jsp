@@ -30,15 +30,18 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=reply">
-				<input type = "hidden" name = "a" value="modify">
-				<input type = "hidden" name = "no" value="${param.no}">
+				<input type = "hidden" name = "a" value="reply">
+				<input type = "hidden" name = "no" value="${param.no }">
+				<input type = "hidden" name = "groupno" value="${param.groupNo }">
+				<input type = "hidden" name = "orderno" value="${param.orderNo }">
+				<input type = "hidden" name = "userno" value="${param.userNo }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">답글쓰기</th>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>${param.title }</td>
+							<td>${boardVo.content }</td>
 						</tr>
 						<tr>
 							<td class="label">답글</td>
@@ -49,7 +52,7 @@
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board">취소</a>
-						<input type="submit" value="수정">
+						<input type="submit" value="답글">
 					</div>
 				</form>				
 			</div>
