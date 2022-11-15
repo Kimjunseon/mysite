@@ -39,6 +39,7 @@ public class BoardController extends HttpServlet {
 			
 		} else if("view".equals(action)) {
 			String no = request.getParameter("no");
+			System.out.println("no: " + no);
 			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
 			
 			BoardVo vo2 = new BoardVo();
@@ -51,8 +52,6 @@ public class BoardController extends HttpServlet {
 		} else if("modify".equals(action)) {
 			String no = request.getParameter("no");
 			String user = request.getParameter("userno");
-			System.out.println("ch1: " + no);
-			System.out.println("ch1: " + user);
 			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
 			request.setAttribute("boardVo", vo);
 			request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(request, response);
@@ -61,9 +60,6 @@ public class BoardController extends HttpServlet {
 			String no = request.getParameter("no");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			System.out.println("ch2: " + no);
-			System.out.println("ch2: " + title);
-			System.out.println("ch2: " + content);
 			new BoardDao().update(title, content, Integer.parseInt(no));
 			response.sendRedirect(request.getContextPath() + "/board");
 			
@@ -74,20 +70,20 @@ public class BoardController extends HttpServlet {
 			
 		} else if("replyform".equals(action)) {
 			String no = request.getParameter("no");
-			
 			String content = request.getParameter("content");
 			String gno = request.getParameter("groupno");
 			String ono = request.getParameter("orderno");
 			String uno = request.getParameter("userno");
-			
-			System.out.println("ch3: " +content);
-			System.out.println("ch3: " +gno);
-			System.out.println("ch3: " +ono);
-			System.out.println("ch3: " +uno);
+						
+			BoardVo vo = new BoardDao().findReplyValue(Integer.parseInt(no));
+			request.setAttribute("boardVo", vo);
 			
 			System.out.println("ch3: " + no);
-			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
-			request.setAttribute("boardVo", vo);
+			System.out.println("content: " + content);
+			System.out.println("gno: " +gno);
+			System.out.println("ono: " +ono);
+			System.out.println("uno: " +uno);
+			
 			request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp").forward(request, response);
 			
 		} else if("reply".equals(action)) {
@@ -97,11 +93,6 @@ public class BoardController extends HttpServlet {
 			String ono = request.getParameter("orderno");
 			String uno = request.getParameter("userno");
 			
-			System.out.println(no);
-			System.out.println(content);
-			System.out.println(gno);
-			System.out.println(ono);
-			System.out.println(uno);
 			
 //			BoardVo vo = new BoardVo();
 //			vo.setContent(content);
@@ -109,7 +100,13 @@ public class BoardController extends HttpServlet {
 //			vo.setOrderNo(Integer.parseInt(ono));
 //			vo.setUserNo(Integer.parseInt(uno));
 //			new BoardDao().replyInsert(vo);
-			
+//			
+//			System.out.println("ch3: " + no);
+//			System.out.println("content: " + content);
+//			System.out.println("gno: " +gno);
+//			System.out.println("ono: " +ono);
+//			System.out.println("uno: " +uno);
+//			
 			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else {

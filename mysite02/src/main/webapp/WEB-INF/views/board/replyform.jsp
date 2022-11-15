@@ -31,9 +31,9 @@
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=reply">
 				<input type = "hidden" name = "a" value="reply">
-				<input type = "hidden" name = "no" value="${param.no }">
-				<input type = "hidden" name = "groupno" value="${param.groupNo }">
-				<input type = "hidden" name = "orderno" value="${param.orderNo }">
+				<input type = "hidden" name = "content" value="${vo.content }">
+				<input type = "hidden" name = "no" value="${vo.no }">
+				<input type = "hidden" name = "orderno" value="${boardVo.orderNo }">
 				<input type = "hidden" name = "userno" value="${param.userNo }">
 					<table class="tbl-ex">
 						<tr>
@@ -52,7 +52,7 @@
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board">취소</a>
-						<input type="submit" value="답글">
+						<input type="submit" value="작성">
 					</div>
 				</form>				
 			</div>

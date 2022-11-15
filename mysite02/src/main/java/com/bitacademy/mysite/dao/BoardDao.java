@@ -205,7 +205,7 @@ public class BoardDao {
 			String sql = "select user_no, title, content from board where no= ? "; // user_no, 추가함
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setLong(1, no);
+			pstmt.setInt(1, no);
 			
 			rs = pstmt.executeQuery();
 			
@@ -309,6 +309,57 @@ public class BoardDao {
 		return result;
 	}
 	
+	public BoardVo findReplyValue(int no) {
+		BoardVo result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "select content, group_no, order_no, depth, user_no from board where no= ? "; // user_no, 추가함
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				String content = rs.getString(1);
+				Integer gn = rs.getInt(2);
+				Integer on = rs.getInt(3);
+				Integer depth = rs.getInt(4);
+				Integer un = rs.getInt(5);
+				result = new BoardVo();
+				result.setContent(content);
+				result.setGroupNo(gn);
+				result.setOrderNo(on);
+				result.setDepth(depth);
+				result.setUserNo(un);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error : " + e);
+		} finally {
+			try {
+				if (rs != null) { // 닫는 순서는 생성 역순으로
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+		
+	}
 	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
