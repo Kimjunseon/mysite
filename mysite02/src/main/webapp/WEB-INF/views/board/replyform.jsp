@@ -31,10 +31,11 @@
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=reply">
 				<input type = "hidden" name = "a" value="reply">
-				<input type = "hidden" name = "content" value="${vo.content }">
-				<input type = "hidden" name = "no" value="${vo.no }">
+				<input type = "hidden" name = "no" value="${param.no }">
+				<input type = "hidden" name = "groupno" value="${boardVo.groupNo }">
 				<input type = "hidden" name = "orderno" value="${boardVo.orderNo }">
-				<input type = "hidden" name = "userno" value="${param.userNo }">
+				<input type = "hidden" name = "authno" value="${authUser.no }">
+
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">답글쓰기</th>
@@ -46,7 +47,7 @@
 						<tr>
 							<td class="label">답글</td>
 							<td>
-								<textarea id="content" name="content">답글쓰기</textarea>
+								<textarea id="content" name="content"></textarea>
 							</td>
 						</tr>
 					</table>

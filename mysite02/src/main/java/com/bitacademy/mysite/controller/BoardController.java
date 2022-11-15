@@ -39,7 +39,6 @@ public class BoardController extends HttpServlet {
 			
 		} else if("view".equals(action)) {
 			String no = request.getParameter("no");
-			System.out.println("no: " + no);
 			BoardVo vo = new BoardDao().findTitle(Integer.parseInt(no));
 			
 			BoardVo vo2 = new BoardVo();
@@ -70,43 +69,25 @@ public class BoardController extends HttpServlet {
 			
 		} else if("replyform".equals(action)) {
 			String no = request.getParameter("no");
-			String content = request.getParameter("content");
-			String gno = request.getParameter("groupno");
-			String ono = request.getParameter("orderno");
-			String uno = request.getParameter("userno");
-						
 			BoardVo vo = new BoardDao().findReplyValue(Integer.parseInt(no));
 			request.setAttribute("boardVo", vo);
-			
-			System.out.println("ch3: " + no);
-			System.out.println("content: " + content);
-			System.out.println("gno: " +gno);
-			System.out.println("ono: " +ono);
-			System.out.println("uno: " +uno);
-			
 			request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp").forward(request, response);
 			
 		} else if("reply".equals(action)) {
-			String no = request.getParameter("no");
 			String content = request.getParameter("content");
 			String gno = request.getParameter("groupno");
 			String ono = request.getParameter("orderno");
-			String uno = request.getParameter("userno");
+			String ano = request.getParameter("authno");
 			
-			
-//			BoardVo vo = new BoardVo();
-//			vo.setContent(content);
-//			vo.setGroupNo(Integer.parseInt(gno));
-//			vo.setOrderNo(Integer.parseInt(ono));
-//			vo.setUserNo(Integer.parseInt(uno));
-//			new BoardDao().replyInsert(vo);
-//			
-//			System.out.println("ch3: " + no);
-//			System.out.println("content: " + content);
-//			System.out.println("gno: " +gno);
-//			System.out.println("ono: " +ono);
-//			System.out.println("uno: " +uno);
-//			
+			System.out.println("g: " + gno);
+			System.out.println("o: " + ono);
+						
+			BoardVo vo = new BoardVo();
+			vo.setContent(content);
+			vo.setGroupNo(Integer.parseInt(gno));
+			vo.setOrderNo(Integer.parseInt(ono));
+			vo.setUserNo(Integer.parseInt(ano));
+			new BoardDao().replyInsert(vo);
 			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else {
