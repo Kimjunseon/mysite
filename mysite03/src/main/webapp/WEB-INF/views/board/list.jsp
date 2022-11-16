@@ -16,11 +16,11 @@
 			<ul>
 				<c:choose>
 					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user?a=loginform">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=joinform">회원가입</a><li>
+						<li><a href="${pageContext.request.contextPath }/user?a=login">로그인</a><li>
+						<li><a href="${pageContext.request.contextPath }/user?a=join">회원가입</a><li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user?a=updateform">회원정보수정</a><li>
+						<li><a href="${pageContext.request.contextPath }/user?a=update">회원정보수정</a><li>
 						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
 						<li>${authUser.name } 님 안녕하세요 ^^;</li>
 					</c:otherwise>
@@ -47,13 +47,13 @@
 					<c:forEach items='${list }' var='vo' varStatus='status'>				
 						<tr>
 							<td>${count-status.index }</td>
-							<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+							<td><a href="${pageContext.request.contextPath }/board/view/{no}=${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td>
 								<c:if test="${authUser.name eq vo.name }">
-									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
+									<a href="${pageContext.request.contextPath }/board/delete{no}=${vo.no }" class="del">삭제</a>
 								</c:if>
 							</td>
 						</tr>
@@ -79,13 +79,13 @@
 				<!-- pager 추가 -->
 				<c:if test="${not empty authUser }">
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+							<a href="${pageContext.request.contextPath }/board/write" id="new-book">글쓰기</a>
 						</div>
 				</c:if>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"/>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>
 </html>
