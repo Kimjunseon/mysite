@@ -1,6 +1,6 @@
 package com.bitacademy.mysite.repository;
 
-import java.sql.Connection; 
+import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.bitacademy.mysite.vo.GuestbookVo;
 
-
+@Repository
 public class GuestbookRepository {
 	public Boolean deleteByNoAndPassword(Long no, String password) {
 		boolean result = false;
@@ -155,5 +157,8 @@ public class GuestbookRepository {
 		} 
 		
 		return conn;
+	}
+
+
 	}
 }

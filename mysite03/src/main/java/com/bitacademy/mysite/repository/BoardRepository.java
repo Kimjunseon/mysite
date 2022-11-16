@@ -109,7 +109,7 @@ public class BoardRepository {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int no = rs.getInt(1);
+				Long no = rs.getLong(1);
 				String title = rs.getString(2);
 				String name = rs.getString(3);
 				int hit = rs.getInt(4);
@@ -320,7 +320,7 @@ public class BoardRepository {
 					       " set hit = hit + 1" +
 					     " where no = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, vo2.getNo());
+			pstmt.setLong(1, vo2.getNo());
 		
 			int count = pstmt.executeUpdate();
 			result = count == 1;

@@ -1,23 +1,23 @@
 package com.bitacademy.mysite.vo;
 
 public class BoardVo {
-	private int no;
+	private Long no;
 	private String title;
 	private String content;
 	private int hit;
 	private String regDate;
-	private int groupNo;
-	private int orderNo;
-	private int depth;
+	private Integer groupNo;
+	private Integer orderNo;
+	private Integer depth;
 	private int userNo;
 	private String name;
 	
-	public int getNo() {
+	public Long getNo() {
 		return no;
 	}
 
 
-	public void setNo(int no) {
+	public void setNo(Long no) {
 		this.no = no;
 	}
 
@@ -67,7 +67,7 @@ public class BoardVo {
 	}
 
 
-	public void setGroupNo(int groupNo) {
+	public void setGroupNo(Integer groupNo) {
 		this.groupNo = groupNo;
 	}
 
@@ -77,7 +77,7 @@ public class BoardVo {
 	}
 
 
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
 
@@ -87,7 +87,7 @@ public class BoardVo {
 	}
 
 
-	public void setDepth(int depth) {
+	public void setDepth(Integer depth) {
 		this.depth = depth;
 	}
 

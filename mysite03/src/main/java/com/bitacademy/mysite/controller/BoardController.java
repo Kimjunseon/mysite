@@ -42,7 +42,7 @@ public class BoardController extends HttpServlet {
 			BoardVo vo = new BoardRepository().findTitle(Integer.parseInt(no));
 			
 			BoardVo vo2 = new BoardVo();
-			vo2.setNo(Integer.parseInt(no));
+			vo2.setNo(Long.parseLong(no));
 			new BoardRepository().updateHit(vo2);
 			
 			request.setAttribute("boardVo", vo);
