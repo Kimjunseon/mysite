@@ -76,20 +76,32 @@ public class BoardController extends HttpServlet {
 		} else if("reply".equals(action)) {
 			String content = request.getParameter("content");
 			String gno = request.getParameter("groupno");
-			// String ono = request.getParameter("orderno");
+			String ono = request.getParameter("orderno");
 			String ano = request.getParameter("authno");
+			String dep = request.getParameter("dep");
 			
+			int depth = Integer.parseInt(dep);
 			
 			System.out.println("g: " + gno);
-			// System.out.println("o: " + ono);
-						
+			System.out.println("o: " + ono);
+			System.out.println("d: " + dep);
+			
+			
 			BoardVo vo = new BoardVo();
 			vo.setContent(content);
 			vo.setGroupNo(Integer.parseInt(gno));
-			// vo.setOrderNo(Integer.parseInt(ono));
 			vo.setUserNo(Integer.parseInt(ano));
-			new BoardDao().updateReply(Integer.parseInt(gno));
-			new BoardDao().replyInsert(vo);
+			vo.setOrderNo(Integer.parseInt(ono));
+			vo.setDepth(Integer.parseInt(dep));
+			
+				if(depth == 0) {
+					new BoardDao().updateReply(Integer.parseInt(gno));
+					new BoardDao().replyInsert(vo);
+				} else if (depth >= 1) {
+					new BoardDao().updateReply2(Integer.parseInt(gno), Integer.parseInt(ono));
+					new BoardDao().replyInsert2(vo);					
+				}
+			
 			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else {

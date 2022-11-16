@@ -35,6 +35,7 @@
 				<input type = "hidden" name = "groupno" value="${boardVo.groupNo }">
 				<input type = "hidden" name = "orderno" value="${boardVo.orderNo }">
 				<input type = "hidden" name = "authno" value="${authUser.no }">
+				<input type = "hidden" name = "dep" value="${boardVo.depth }">
 
 					<table class="tbl-ex">
 						<tr>

@@ -90,6 +90,45 @@ public class BoardDao {
 		return result;
 	}
 	
+	public Boolean replyInsert2(BoardVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "insert into board values (null, '', ?, 0, now(), ?, ?+1, ?+1, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getContent());
+			pstmt.setInt(2, vo.getGroupNo());
+			pstmt.setInt(3, vo.getOrderNo());
+			pstmt.setInt(4, vo.getUserNo());
+			pstmt.setInt(5, vo.getDepth());
+			
+			int count = pstmt.executeUpdate();
+			
+			//5. 결과 처리
+			result = count == 1;
+			
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	public List<BoardVo> findAll() {
 		List<BoardVo> result = new ArrayList<>();
 	
@@ -104,7 +143,7 @@ public class BoardDao {
 					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.content" +
 					"     from user a, board b"  +
 					"    where a.no = b.user_no" +
-					" order by b.no, b.group_no desc, b.order_no asc, b.depth desc";
+					" order by b.group_no desc, b.order_no asc, b.depth asc";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -288,6 +327,41 @@ public class BoardDao {
 					     " where group_no = ? and order_no > 1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, gno);
+
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("Error : " + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+	
+	public boolean updateReply2(int gno, int ono) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "update board" + 
+			               " set order_no = order_no + 1" +
+					     " where group_no = ? and order_no > ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gno);
+			pstmt.setInt(2, ono);
 
 			
 			int count = pstmt.executeUpdate();
