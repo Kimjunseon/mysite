@@ -1,4 +1,4 @@
-package com.bitacademy.mysite.dao;
+package com.bitacademy.mysite.repository;
 
 import java.sql.Connection; 
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import java.util.List;
 import com.bitacademy.mysite.vo.BoardVo;
 import com.bitacademy.mysite.vo.GuestbookVo;
 
-public class BoardDao {
+public class BoardRepository {
 	
 	public Boolean newBoardInsert(BoardVo vo) {
 		boolean result = false;
@@ -59,11 +59,10 @@ public class BoardDao {
 		
 		try {
 			conn = getConnection();
-			String sql = "insert into board values (null, '', ?, 0, now(), ?, (select min(order_no)+1 from board b), 1, ?)";
+			String sql = "insert into board values (null, '', ?, 0, now(), ?, 1, 1, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getContent());
 			pstmt.setInt(2, vo.getGroupNo());
-			// pstmt.setInt(3, vo.getOrderNo());
 			pstmt.setInt(3, vo.getUserNo());
 			
 			int count = pstmt.executeUpdate();
