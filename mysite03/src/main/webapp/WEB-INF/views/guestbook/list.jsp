@@ -26,8 +26,7 @@
 							<td colspan=4><textarea name="contents" id="content"></textarea></td>
 						</tr>
 						<tr>
-							<td colspan=4 align=right><input type="submit" VALUE=" 확인 ">
-							<input type="reset" VALUE=" 초기화 "></td>
+							<td colspan=4 align=right><input type="submit" value=" 확인 ">
 						</tr>
 					</table>
 				</form>

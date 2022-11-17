@@ -46,17 +46,19 @@
 					<c:set var='count' value='${fn:length(list) }' />
 					<c:forEach items='${list }' var='vo' varStatus='status'>				
 						<tr>
-							<td>${count-status.index }</td>
-							<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
-							<td>${vo.name }</td>
-							<td>${vo.hit }</td>
-							<td>${vo.regDate }</td>
-							<td>
-								<c:if test="${authUser.name eq vo.name }">
-									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
-								</c:if>
-							</td>
-																					
+							<c:if test="${vo.depth == 0} ">
+								<td>${count-status.index }</td>
+								<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+								<td>${vo.name }</td>
+								<td>${vo.hit }</td>
+								<td>${vo.regDate }</td>
+								<td>
+									<c:if test="${authUser.name eq vo.name }">
+										<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
+									</c:if>
+								</td>
+							</c:if>						
+								
 							<td style="text-align:left; padding-left:${vo.depth*20 }px">
 								<c:if test="${vo.depth !=0 }">
 									<img src='${pageContext.request.contextPath }/assets/images/reply.png' />

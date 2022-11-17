@@ -38,7 +38,15 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!-- mariaDB -->
+		
+	<!-- Apache common DBCP  -->
+		<dependency>
+    		<groupId>commons-dbcp</groupId>
+    		<artifactId>commons-dbcp</artifactId>
+    		<version>1.4</version>
+		</dependency>
+		
+	<!-- mariaDB -->
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>

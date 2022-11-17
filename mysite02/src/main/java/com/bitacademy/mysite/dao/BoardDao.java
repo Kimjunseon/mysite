@@ -140,7 +140,7 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql =			
-					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.content" +
+					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.content, b.group_no, b.order_no, b.depth" +
 					"     from user a, board b"  +
 					"    where a.no = b.user_no" +
 					" order by b.group_no desc, b.order_no asc, b.depth asc";
@@ -155,9 +155,9 @@ public class BoardDao {
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
 				String content = rs.getString(6);
-//				int groupNo = rs.getInt(6);
-//				int orderNo = rs.getInt(7);
-//				int depth = rs.getInt(8);
+				int groupNo = rs.getInt(7);
+				int orderNo = rs.getInt(8);
+				int depth = rs.getInt(9);
 //				int userNo = rs.getInt(9);
 
 				
@@ -168,9 +168,9 @@ public class BoardDao {
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
 				vo.setContent(content);
-//				vo.setGroupNo(groupNo);
-//				vo.setOrderNo(orderNo);
-//				vo.setDepth(depth);
+				vo.setGroupNo(groupNo);
+				vo.setOrderNo(orderNo);
+				vo.setDepth(depth);
 //				vo.setUserNo(userNo);
 
 				result.add(vo);
