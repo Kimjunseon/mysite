@@ -56,17 +56,15 @@
 									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
 								</c:if>
 							</td>
+																					
+							<td style="text-align:left; padding-left:${vo.depth*20 }px">
+								<c:if test="${vo.depth !=0 }">
+									<img src='${pageContext.request.contextPath }/assets/images/reply.png' />
+								</c:if>
+								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+							</td>
 						</tr>
-						<tr>
-							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-							<td><a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no }">${vo.content }</a></td>
-						</tr>
-						<tr>
-							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-							<td><a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no }">${vo.content }</a></td>
-							<td>${vo.name }</td>
-							<td>${vo.regDate }</td>
-						</tr>
+						
 					</c:forEach>
 				</table>
 				
