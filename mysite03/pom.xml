@@ -13,7 +13,7 @@
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 		<maven.compiler.source>12</maven.compiler.source>
 		<maven.compiler.target>12</maven.compiler.target>
-		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.3.RELEASE</org.springframework-version>
 	</properties>
 	
 	<dependencies>
@@ -38,6 +38,12 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+	<!-- Spring JDBC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		
 	<!-- Apache common DBCP  -->
 		<dependency>
