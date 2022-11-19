@@ -22,7 +22,7 @@
 					<c:otherwise>
 						<li><a href="${pageContext.request.contextPath }/user?a=updateform">회원정보수정</a><li>
 						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
-						<li>${authUser.name } 님 안녕하세요 ^^;</li>
+						<li>${authUser.name }님 안녕하세요 ^^;</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -35,13 +35,13 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${boardVo.title }</td>
+						<td>${vo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${boardVo.content }
+								${vo.contents }
 							</div>
 						</td>
 					</tr>
@@ -52,7 +52,7 @@
 						<c:when test="${empty authUser }"> 
 						</c:when>
 						<c:when test="${authUser.no == boardVo.userNo }">
-							<a href="${pageContext.request.contextPath }/board?a=modify&no=${param.no }">글수정</a>
+							<a href="${pageContext.request.contextPath }/board/modify/${no}=${param.no }">글수정</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -61,7 +61,7 @@
 						<c:when test="${empty authUser }">
 						</c:when>
 						<c:otherwise>
-							<a href="${pageContext.request.contextPath }/board?a=replyform&no=${param.no }">답글</a>
+							<a href="${pageContext.request.contextPath }/board/replyform/${no}=${param.no }">답글</a>
 						</c:otherwise>
 					</c:choose>
 				</div>

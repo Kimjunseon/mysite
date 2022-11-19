@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,73 +97,7 @@ public class BoardRepository {
 	}
 	
 	public List<BoardVo> findAll() {
-		List<BoardVo> result = new ArrayList<>();
-	
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql =			
-					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.contents" +
-					"     from user a, board b"  +
-					"    where a.no = b.user_no" +
-					" order by b.no, b.group_no desc, b.order_no asc, b.depth desc";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String name = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				String contents = rs.getString(6);
-//				int groupNo = rs.getInt(6);
-//				int orderNo = rs.getInt(7);
-//				int depth = rs.getInt(8);
-//				int userNo = rs.getInt(9);
-
-				
-				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setName(name);
-				vo.setHit(hit);
-				vo.setRegDate(regDate);
-				vo.setContents(contents);
-//				vo.setGroupNo(groupNo);
-//				vo.setOrderNo(orderNo);
-//				vo.setDepth(depth);
-//				vo.setUserNo(userNo);
-
-				result.add(vo);
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-		
-		return result;
+		return sqlSession.selectList("board.findAll");
 	}
 	
 	public boolean deleteByUser(int no) {
@@ -198,51 +134,11 @@ public class BoardRepository {
 		
 	}
 	
-	public BoardVo findTitle(int no) {
-		BoardVo result = null;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			String sql = "select user_no, title, contents from board where no= ? "; // user_no, 추가함
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, no);
-			
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				
-				Integer un = rs.getInt(1);
-				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				result = new BoardVo();
-				result.setUserNo(un);
-				result.setTitle(title);
-				result.setContents(contents);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("Error : " + e);
-		} finally {
-			try {
-				if (rs != null) { // 닫는 순서는 생성 역순으로
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+	public BoardVo findTitle(Long no) {
+		String sno = Long.toString(no);
+		Map<String, Object> map = new HashMap<>();
+		map.put("no", sno);
+		return sqlSession.selectOne("board.findTitle", map);
 	}
 	
 	public boolean update(String title, String contents, int no) {

@@ -47,19 +47,19 @@
 					<c:forEach items='${list }' var='vo' varStatus='status'>				
 						<tr>
 							<td>${count-status.index }</td>
-							<td><a href="${pageContext.request.contextPath }/board/view/{no}=${vo.no }">${vo.title }</a></td>
+							<td><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td>
 								<c:if test="${authUser.name eq vo.name }">
-									<a href="${pageContext.request.contextPath }/board/delete{no}=${vo.no }" class="del">삭제</a>
+									<a href="${pageContext.request.contextPath }/board/delete/${no}=${vo.no }" class="del">삭제</a>
 								</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-							<td><a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no }">${vo.contents }</a></td>
+							<td><a href="${pageContext.request.contextPath }/board/replyform/${no}=${vo.no }">${vo.contents }</a></td>
 						</tr>
 					</c:forEach>
 				</table>

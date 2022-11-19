@@ -1,5 +1,6 @@
 package com.bitacademy.mysite.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
+	public List<BoardVo> getContentsList() {
+		return boardRepository.findAll();
+	}
+	
 	public void addContents(BoardVo vo) {
 	}
 	
 	public BoardVo findContents(Long no) {
-		return null;
+		return boardRepository.findTitle(no);
 	}
 	
 	public BoardVo findContents(Long no, Long userNo) {
