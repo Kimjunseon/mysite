@@ -16,13 +16,13 @@
 			<ul>
 				<c:choose>
 					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user?a=login">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=join">회원가입</a><li>
+						<li><a href="${pageContext.request.contextPath }/user/login">로그인</a><li>
+						<li><a href="${pageContext.request.contextPath }/user/join">회원가입</a><li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user?a=update">회원정보수정</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
-						<li>${authUser.name } 님 안녕하세요 ^^;</li>
+						<li><a href="${pageContext.request.contextPath }/user/update">회원정보수정</a><li>
+						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
+						<li>${authUser.name }님 안녕하세요 ^^;</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -59,7 +59,7 @@
 						</tr>
 						<tr>
 							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-							<td><a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no }">${vo.content }</a></td>
+							<td><a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no }">${vo.contents }</a></td>
 						</tr>
 					</c:forEach>
 				</table>

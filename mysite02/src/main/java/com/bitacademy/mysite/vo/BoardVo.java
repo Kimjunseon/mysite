@@ -3,7 +3,7 @@ package com.bitacademy.mysite.vo;
 public class BoardVo {
 	private int no;
 	private String title;
-	private String content;
+	private String contents;
 	private int hit;
 	private String regDate;
 	private int groupNo;
@@ -32,13 +32,13 @@ public class BoardVo {
 	}
 
 
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
 
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 
@@ -114,7 +114,7 @@ public class BoardVo {
 
 	@Override
 	public String toString() {
-		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", regDate="
+		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", regDate="
 				+ regDate + ", groupNo=" + groupNo + ", orderNo=" + orderNo + ", depth=" + depth + ", userNo=" + userNo
 				+ "]";
 	}

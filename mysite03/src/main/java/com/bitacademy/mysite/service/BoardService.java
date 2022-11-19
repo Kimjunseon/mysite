@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.bitacademy.mysite.repository.BoardRepository;
 import com.bitacademy.mysite.vo.BoardVo;
 
-
-
 @Service
 public class BoardService {
 	@Autowired

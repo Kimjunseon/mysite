@@ -1,6 +1,6 @@
 package com.bitacademy.mysite.repository;
 
-import java.sql.Connection; 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bitacademy.mysite.vo.BoardVo;
-import com.bitacademy.mysite.vo.GuestbookVo;
 @Repository
 public class BoardRepository {
+	@Autowired
+	private SqlSession sqlSession;
 	
 	public Boolean newBoardInsert(BoardVo vo) {
 		boolean result = false;
@@ -27,7 +30,7 @@ public class BoardRepository {
 			String sql = "insert into board values (null, ?, ?, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContent());
+			pstmt.setString(2, vo.getContents());
 			pstmt.setInt(3, vo.getUserNo());
 			
 			int count = pstmt.executeUpdate();
@@ -63,7 +66,7 @@ public class BoardRepository {
 			conn = getConnection();
 			String sql = "insert into board values (null, '', ?, 0, now(), ?, 1, 1, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getContent());
+			pstmt.setString(1, vo.getContents());
 			pstmt.setInt(2, vo.getGroupNo());
 			pstmt.setInt(3, vo.getUserNo());
 			
@@ -102,7 +105,7 @@ public class BoardRepository {
 			conn = getConnection();
 			
 			String sql =			
-					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.content" +
+					"   select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s'), b.contents" +
 					"     from user a, board b"  +
 					"    where a.no = b.user_no" +
 					" order by b.no, b.group_no desc, b.order_no asc, b.depth desc";
@@ -116,7 +119,7 @@ public class BoardRepository {
 				String name = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
-				String content = rs.getString(6);
+				String contents = rs.getString(6);
 //				int groupNo = rs.getInt(6);
 //				int orderNo = rs.getInt(7);
 //				int depth = rs.getInt(8);
@@ -129,7 +132,7 @@ public class BoardRepository {
 				vo.setName(name);
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
-				vo.setContent(content);
+				vo.setContents(contents);
 //				vo.setGroupNo(groupNo);
 //				vo.setOrderNo(orderNo);
 //				vo.setDepth(depth);
@@ -203,7 +206,7 @@ public class BoardRepository {
 		
 		try {
 			conn = getConnection();
-			String sql = "select user_no, title, content from board where no= ? "; // user_no, 추가함
+			String sql = "select user_no, title, contents from board where no= ? "; // user_no, 추가함
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, no);
@@ -214,11 +217,11 @@ public class BoardRepository {
 				
 				Integer un = rs.getInt(1);
 				String title = rs.getString(2);
-				String content = rs.getString(3);
+				String contents = rs.getString(3);
 				result = new BoardVo();
 				result.setUserNo(un);
 				result.setTitle(title);
-				result.setContent(content);
+				result.setContents(contents);
 			}
 
 		} catch (SQLException e) {
@@ -242,7 +245,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public boolean update(String title, String content, int no) {
+	public boolean update(String title, String contents, int no) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -250,11 +253,11 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 			String sql = "update board" + 
-			               " set title = ?, content = ?" +
+			               " set title = ?, contents = ?" +
 					     " where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, title);
-			pstmt.setString(2, content);
+			pstmt.setString(2, contents);
 			pstmt.setInt(3, no);
 			
 			int count = pstmt.executeUpdate();
@@ -352,7 +355,7 @@ public class BoardRepository {
 		
 		try {
 			conn = getConnection();
-			String sql = "select content, group_no, order_no, depth, user_no from board where no= ? "; // user_no, 추가함
+			String sql = "select contents, group_no, order_no, depth, user_no from board where no= ? "; // user_no, 추가함
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, no);
@@ -361,13 +364,13 @@ public class BoardRepository {
 			
 			while (rs.next()) {
 				
-				String content = rs.getString(1);
+				String contents = rs.getString(1);
 				Integer gn = rs.getInt(2);
 				Integer on = rs.getInt(3);
 				Integer depth = rs.getInt(4);
 				Integer un = rs.getInt(5);
 				result = new BoardVo();
-				result.setContent(content);
+				result.setContents(contents);
 				result.setGroupNo(gn);
 				result.setOrderNo(on);
 				result.setDepth(depth);

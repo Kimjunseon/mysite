@@ -38,7 +38,7 @@
 							<td>비밀번호</td><td><input type="password" name="pass"></td>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="content" id="content"></textarea></td>
+							<td colspan=4><textarea name="contents" id="content"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
@@ -57,7 +57,7 @@
 									<td><a href="${pageContext.request.contextPath }/gb?a=deleteform&no=${vo.no }">삭제</a></td>
 								</tr>
 								<tr>
-									<td colspan=4>${fn:replace(vo.contents,newLine,'<br/>') }</td>
+									<td colspan=4>${fn:replace(vo.contents, newLine,'<br/>') }</td>
 								</tr>
 							</c:forEach>
 						</table>

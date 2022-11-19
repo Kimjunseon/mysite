@@ -41,7 +41,7 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${boardVo.content }
+								${boardVo.contents }
 							</div>
 						</td>
 					</tr>

@@ -25,12 +25,12 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);	
 		} else if("write".equals(action)) {
 			String title = request.getParameter("title");
-			String content = request.getParameter("content");
+			String contents = request.getParameter("contents");
 			String userno = request.getParameter("userno");
 
 			BoardVo vo = new BoardVo();
 			vo.setTitle(title);
-			vo.setContent(content);
+			vo.setContents(contents);
 			vo.setUserNo(Integer.parseInt(userno));
 			
 			new BoardDao().newBoardInsert(vo);
@@ -58,8 +58,8 @@ public class BoardController extends HttpServlet {
 		} else if("executeModify".equals(action)) {
 			String no = request.getParameter("no");
 			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			new BoardDao().update(title, content, Integer.parseInt(no));
+			String contents = request.getParameter("contents");
+			new BoardDao().update(title, contents, Integer.parseInt(no));
 			response.sendRedirect(request.getContextPath() + "/board");
 			
 		} else if("delete".equals(action)) {
@@ -74,7 +74,7 @@ public class BoardController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/board/replyform.jsp").forward(request, response);
 			
 		} else if("reply".equals(action)) {
-			String content = request.getParameter("content");
+			String contents = request.getParameter("contents");
 			String gno = request.getParameter("groupno");
 			String ono = request.getParameter("orderno");
 			String ano = request.getParameter("authno");
@@ -88,7 +88,7 @@ public class BoardController extends HttpServlet {
 			
 			
 			BoardVo vo = new BoardVo();
-			vo.setContent(content);
+			vo.setContents(contents);
 			vo.setGroupNo(Integer.parseInt(gno));
 			vo.setUserNo(Integer.parseInt(ano));
 			vo.setOrderNo(Integer.parseInt(ono));

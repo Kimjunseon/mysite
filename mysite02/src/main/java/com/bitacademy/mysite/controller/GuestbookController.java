@@ -22,7 +22,7 @@ public class GuestbookController extends HttpServlet {
 		if("insert".equals(action)) {
 			String name = request.getParameter("name");
 			String password = request.getParameter("pass");
-			String contents = request.getParameter("content");
+			String contents = request.getParameter("contents");
 			
 			GuestbookVo vo = new GuestbookVo();
 			vo.setName(name);

@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>${boardVo.content }</td>
+							<td>${boardVo.contents }</td>
 						</tr>
 						<tr>
 							<td class="label">답글</td>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>mysite</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="contents-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -43,12 +43,12 @@
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>${boardVo.content }</td>
+							<td>${boardVo.contents }</td>
 						</tr>
 						<tr>
 							<td class="label">답글</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>

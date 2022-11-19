@@ -32,7 +32,7 @@
 						<li><a
 							href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a>
 						<li>
-						<li>${authUser.name }님안녕하세요 ^^;</li>
+						<li>${authUser.name }님 안녕하세요 ^^;</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -55,12 +55,10 @@
 
 					<c:set var='count' value='${fn:length(list) }' />
 					<c:forEach items='${list }' var='vo' varStatus='status'>
-						<C:forEach items='${list[count].depth }' var='vo' varStatus='vs'>
-							${list[count].depth } 
-						<c:if test="${list[count] == 0 } ">
+
 							<tr>
 								<td>${count-status.index }</td>
-								<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.content }</a></td>
+								<td><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.contents }</a></td>
 								<td>${vo.name }</td>
 								<td>${vo.hit }</td>
 								<td>${vo.regDate }</td>
@@ -68,7 +66,7 @@
 									<a
 										href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }"
 										class="del">삭제</a>
-								</c:if>
+						
 							</tr>
 							<tr>
 								<td><img
@@ -81,7 +79,7 @@
 							<tr>
 								<td><img
 									src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-								<td>${vo.content }</td>
+								<td>${vo.contents }</td>
 								<td></td>
 								<td>${vo.name }</td>
 								<td>${vo.regDate }</td>
@@ -98,7 +96,7 @@
 								<td></td>
 								<td><img
 									src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-								<td>${vo.content }</td>
+								<td>${vo.contents }</td>
 								<td>${vo.name }</td>
 								<td>${vo.regDate }</td>
 								<c:if test="${authUser.name eq vo.name }">
