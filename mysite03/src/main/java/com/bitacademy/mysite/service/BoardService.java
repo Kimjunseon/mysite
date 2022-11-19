@@ -18,7 +18,8 @@ public class BoardService {
 		return boardRepository.findAll();
 	}
 	
-	public void addContents(BoardVo vo) {
+	public void addContents(BoardVo boardVo) {
+		boardRepository.newBoardInsert(boardVo);
 	}
 	
 	public BoardVo findContents(Long no) {

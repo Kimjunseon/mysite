@@ -11,39 +11,23 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<c:choose>
-					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user/loginform">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user/joinform">회원가입</a><li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user/updateform">회원정보수정</a><li>
-						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
-						<li>${authUser.name }님 안녕하세요 ^^;</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
+	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-					<input type = "hidden" name = "a" value="write">
-					<input type = "hidden" name = "userno" value="${authUser.no }">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
+				    <input type="hidden" name="userNo" value="${authUser.no }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value="${param.title }"></td>
+							<td><input type="text" name="title" value=""></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>
@@ -54,7 +38,6 @@
 				</form>				
 			</div>
 		</div>
-		<div id="navigation">
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>

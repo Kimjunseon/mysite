@@ -5,10 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,42 +18,8 @@ public class BoardRepository {
 	private SqlSession sqlSession;
 	
 	public Boolean newBoardInsert(BoardVo vo) {
-		boolean result = false;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql = "insert into board values (null, ?, ?, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, ?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContents());
-			pstmt.setInt(3, vo.getUserNo());
-			
-			int count = pstmt.executeUpdate();
-			
-			//5. 결과 처리
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+		int count = sqlSession.insert("board.newBoardInsert", vo);
+		return count == 1;
 	}
 	
 	public Boolean replyInsert(BoardVo vo) {
@@ -135,10 +98,7 @@ public class BoardRepository {
 	}
 	
 	public BoardVo findTitle(Long no) {
-		String sno = Long.toString(no);
-		Map<String, Object> map = new HashMap<>();
-		map.put("no", sno);
-		return sqlSession.selectOne("board.findTitle", map);
+		return sqlSession.selectOne("board.findTitle", no);
 	}
 	
 	public boolean update(String title, String contents, int no) {

@@ -16,5 +16,14 @@
 		  from board
 		 where no=#{no }
 		]]>
-	</select> 
+	</select>
+	
+	<insert id="newBoardInsert" parameterType="boardvo">
+		<![CDATA[
+		insert
+		  into board
+		values (null, #{title }, #{contents }, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, #{userNo })
+		 ]]>
+	</insert>	
+	 
 </mapper>
