@@ -106,8 +106,7 @@
 								</c:if>
 							</tr>
 						</c:if>
-						</C:forEach>
-					</c:forEach>
+						</c:forEach>
 				</table>
 
 				<!-- pager 추가 -->
