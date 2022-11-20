@@ -11,25 +11,10 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<c:choose>
-					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user?a=loginform">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=joinform">회원가입</a><li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user?a=updateform">회원정보수정</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
-						<li>${authUser.name } 님 안녕하세요 ^^;</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
+	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=executeModify">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
 				<input type = "hidden" name = "a" value="modify">
 				<input type = "hidden" name = "no" value="${param.no}">
 					<table class="tbl-ex">
@@ -48,7 +33,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=view&no=${param.no }">취소</a>
+						<a href="${pageContext.request.contextPath }/board">취소</a>
 						<input type="submit" value="수정">
 					</div>
 				</form>				

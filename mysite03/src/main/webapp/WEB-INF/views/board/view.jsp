@@ -26,7 +26,9 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${contents} 
+								${contents}
+								aun: ${authUser.no }
+								un: ${userno }
 							</div>
 						</td>
 					</tr>
@@ -36,7 +38,7 @@
 					<c:choose>
 						<c:when test="${empty authUser }"> 
 						</c:when>
-						<c:when test="${authUser.no == boardVo.userNo }">
+						<c:when test="${authUser.no == userNo}">
 							<a href="${pageContext.request.contextPath }/board/modify/${no}=${param.no }">글수정</a>
 						</c:when>
 						<c:otherwise>

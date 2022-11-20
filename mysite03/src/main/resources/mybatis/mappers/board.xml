@@ -12,7 +12,7 @@
 
 	<select id="findTitle" resultType="boardvo">
 		<![CDATA[
-		select user_no, title, contents
+		select no, user_no, title, contents, order_no
 		  from board
 		 where no=#{no }
 		]]>
@@ -32,5 +32,13 @@
 	 where no = #{no }
 	]]>
 	</delete>
+	
+	<update id="updateHit"  parameterType="boardvo">
+			<![CDATA[
+			update board
+			   set hit = hit + 1
+			 where no=#{no }
+			]]>
+	</update>
 
 </mapper>

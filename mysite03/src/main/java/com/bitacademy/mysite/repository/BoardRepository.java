@@ -142,37 +142,9 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public boolean updateHit(BoardVo vo2) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			String sql = "update board" + 
-					       " set hit = hit + 1" +
-					     " where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, vo2.getNo());
-		
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("Error : " + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+	public boolean updateHit(Long no) {
+		int count =sqlSession.update("board.updateHit", no);
+		return count  == 1;
 	}
 	
 	public BoardVo findReplyValue(int no) {

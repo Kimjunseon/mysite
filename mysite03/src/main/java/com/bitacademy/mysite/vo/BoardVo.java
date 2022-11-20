@@ -12,6 +12,7 @@ public class BoardVo {
 	private Integer userNo;
 	private String name;
 	
+
 	public Long getNo() {
 		return no;
 	}
@@ -42,7 +43,7 @@ public class BoardVo {
 	}
 
 
-	public int getHit() {
+	public Integer getHit() {
 		return hit;
 	}
 
@@ -62,7 +63,7 @@ public class BoardVo {
 	}
 
 
-	public int getGroupNo() {
+	public Integer getGroupNo() {
 		return groupNo;
 	}
 
@@ -72,7 +73,7 @@ public class BoardVo {
 	}
 
 
-	public int getOrderNo() {
+	public Integer getOrderNo() {
 		return orderNo;
 	}
 
@@ -82,7 +83,7 @@ public class BoardVo {
 	}
 
 
-	public int getDepth() {
+	public Integer getDepth() {
 		return depth;
 	}
 
@@ -92,7 +93,7 @@ public class BoardVo {
 	}
 
 
-	public int getUserNo() {
+	public Integer getUserNo() {
 		return userNo;
 	}
 

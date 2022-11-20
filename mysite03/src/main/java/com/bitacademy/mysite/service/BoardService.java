@@ -23,6 +23,7 @@ public class BoardService {
 	}
 	
 	public BoardVo findContents(Long no) {
+//		boardRepository.updateHit(no);
 		return boardRepository.findTitle(no);
 	}
 	
@@ -36,8 +37,6 @@ public class BoardService {
 		int endPage = 0;
 		
 		// 리스트 가져오기
-		
-		
 		return null;
 	}
 	
