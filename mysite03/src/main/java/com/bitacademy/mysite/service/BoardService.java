@@ -23,7 +23,7 @@ public class BoardService {
 	}
 	
 	public BoardVo findContents(Long no) {
-		return boardRepository.deleteByUser(no);
+		return boardRepository.findTitle(no);
 	}
 	
 	public BoardVo findContents(Long no, int userNo) {
@@ -44,6 +44,7 @@ public class BoardService {
 	public void updateContents(BoardVo vo) {
 	}
 	
-	public void deleteContents(Long no, Long UserNo) {
+	public void deleteContents(Long no, Long userNo) {
+		boardRepository.deleteByUser(no, userNo);
 	}
 }

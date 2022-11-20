@@ -11,22 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<c:choose>
-					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user?a=loginform">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=joinform">회원가입</a><li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user?a=updateform">회원정보수정</a><li>
-						<li><a href="${pageContext.request.contextPath }/user?a=logout">로그아웃</a><li>
-						<li>${authUser.name }님 안녕하세요 ^^;</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board" class="board-form">
 				<table class="tbl-ex">
@@ -35,13 +20,13 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${vo.title }</td>
+						<td>${title}</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${vo.contents }
+								${contents} 
 							</div>
 						</td>
 					</tr>

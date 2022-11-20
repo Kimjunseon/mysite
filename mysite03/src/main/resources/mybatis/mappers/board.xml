@@ -10,7 +10,7 @@
 		]]>
 	</select>
 
-	<select id="findTitle" resultType="boardvo" parameterType="long">
+	<select id="findTitle" resultType="boardvo">
 		<![CDATA[
 		select user_no, title, contents
 		  from board

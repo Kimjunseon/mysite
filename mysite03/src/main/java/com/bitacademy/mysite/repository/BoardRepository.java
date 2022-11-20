@@ -65,7 +65,7 @@ public class BoardRepository {
 		return sqlSession.selectList("board.findAll");
 	}
 	
-	public BoardVo deleteByUser(Long no) {
+	public BoardVo deleteByUser(Long no, Long userNo) {
 		return sqlSession.selectOne("board.deleteByUser", no);				
 	}
 	

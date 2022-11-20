@@ -1,15 +1,17 @@
 package com.bitacademy.mysite.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitacademy.mysite.service.BoardService;
 import com.bitacademy.mysite.vo.BoardVo;
+import com.bitacademy.mysite.vo.UserVo;
 
 @Controller
 @RequestMapping("/board")
@@ -23,11 +25,15 @@ public class BoardController{
 		return "board/list";
 	}
 	
-	@RequestMapping(value="/view/{no}", method=RequestMethod.GET)
-	public String view(@PathVariable("no") Long no, Model model) {
-		model.addAttribute("no", boardService.findContents(no));
+
+	@RequestMapping(value="/view/{no}")
+	public String view(Model model, @PathVariable("no") Long no) {
+		BoardVo boardVo = boardService.findContents(no);
+		model.addAttribute("title", boardVo.getTitle());
+		model.addAttribute("contents", boardVo.getContents());
 		return "board/view";
 	}
+	
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String write() {
@@ -42,8 +48,8 @@ public class BoardController{
 	
 	
 	@RequestMapping(value="/delete/{no}")
-	public String delete(@PathVariable Long no) {
-		boardService.findContents(no);
+	public String delete(@PathVariable Long no, Long userNo) {
+		boardService.deleteContents(no, userNo);
 		return "redirect:/board";
 	}
 	
