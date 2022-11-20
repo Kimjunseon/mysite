@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,38 +65,8 @@ public class BoardRepository {
 		return sqlSession.selectList("board.findAll");
 	}
 	
-	public boolean deleteByUser(int no) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			String sql = "delete from board where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			
-			int count = pstmt.executeUpdate();
-			
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;		
-		
+	public BoardVo deleteByUser(Long no) {
+		return sqlSession.selectOne("board.deleteByUser", no);				
 	}
 	
 	public BoardVo findTitle(Long no) {

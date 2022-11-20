@@ -11,22 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<c:choose>
-					<c:when test="${empty authUser }">
-						<li><a href="${pageContext.request.contextPath }/user/login">로그인</a><li>
-						<li><a href="${pageContext.request.contextPath }/user/join">회원가입</a><li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath }/user/update">회원정보수정</a><li>
-						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
-						<li>${authUser.name }님 안녕하세요 ^^;</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="" method="post">
@@ -53,7 +38,7 @@
 							<td>${vo.regDate }</td>
 							<td>
 								<c:if test="${authUser.name eq vo.name }">
-									<a href="${pageContext.request.contextPath }/board/delete/${no}=${vo.no }" class="del">삭제</a>
+									<a href="${pageContext.request.contextPath }/board/delete/${vo.no }" class="del">삭제</a>
 								</c:if>
 							</td>
 						</tr>

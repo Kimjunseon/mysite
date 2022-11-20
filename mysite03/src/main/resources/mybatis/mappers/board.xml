@@ -25,5 +25,12 @@
 		values (null, #{title }, #{contents }, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, #{userNo })
 		 ]]>
 	</insert>	
-	 
+
+	<delete id="deleteByUser" parameterType="boardvo">
+	<![CDATA[
+	delete from board
+	 where no = #{no }
+	]]>
+	</delete>
+
 </mapper>

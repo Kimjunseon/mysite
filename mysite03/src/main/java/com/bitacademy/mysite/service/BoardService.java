@@ -23,10 +23,10 @@ public class BoardService {
 	}
 	
 	public BoardVo findContents(Long no) {
-		return boardRepository.findTitle(no);
+		return boardRepository.deleteByUser(no);
 	}
 	
-	public BoardVo findContents(Long no, Long userNo) {
+	public BoardVo findContents(Long no, int userNo) {
 		return null;
 	}
 	

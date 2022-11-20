@@ -40,4 +40,11 @@ public class BoardController{
 		return "redirect:/board";
 	}
 	
+	
+	@RequestMapping(value="/delete/{no}")
+	public String delete(@PathVariable Long no) {
+		boardService.findContents(no);
+		return "redirect:/board";
+	}
+	
 }

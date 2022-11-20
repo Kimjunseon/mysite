@@ -4,12 +4,12 @@ public class BoardVo {
 	private Long no;
 	private String title;
 	private String contents;
-	private int hit;
+	private Integer hit;
 	private String regDate;
 	private Integer groupNo;
 	private Integer orderNo;
 	private Integer depth;
-	private int userNo;
+	private Integer userNo;
 	private String name;
 	
 	public Long getNo() {
@@ -47,7 +47,7 @@ public class BoardVo {
 	}
 
 
-	public void setHit(int hit) {
+	public void setHit(Integer hit) {
 		this.hit = hit;
 	}
 
@@ -97,7 +97,7 @@ public class BoardVo {
 	}
 
 
-	public void setUserNo(int userNo) {
+	public void setUserNo(Integer userNo) {
 		this.userNo = userNo;
 	}
 
