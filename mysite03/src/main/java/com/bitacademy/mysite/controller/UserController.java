@@ -1,7 +1,5 @@
 package com.bitacademy.mysite.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bitacademy.mysite.security.Auth;
+import com.bitacademy.mysite.security.AuthUser;
 import com.bitacademy.mysite.service.UserService;
 import com.bitacademy.mysite.vo.UserVo;
 
@@ -42,8 +41,6 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(Model model, @AuthUser UserVo authUser) {
-		// UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
 		UserVo userVo = userService.findUser(authUser.getNo());
 		model.addAttribute("userVo", userVo);
 		return "user/update";
@@ -51,9 +48,7 @@ public class UserController {
 	
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(HttpSession session, UserVo userVo) {
-
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+	public String update(UserVo userVo, @AuthUser UserVo authUser) {
 
 		userVo.setNo(authUser.getNo());
 		userService.updateUser(userVo);
