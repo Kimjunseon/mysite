@@ -26,9 +26,13 @@ public class BoardService {
 		boardRepository.updateHit(no);
 		return boardRepository.findTitle(no);
 	}
+
+	public void updateContents(BoardVo boardVo) {
+		boardRepository.update(boardVo);
+	}
 	
-	public BoardVo findContents(Long no, int userNo) {
-		return null;
+	public void deleteContents(Long no, Long userNo) {
+		boardRepository.deleteByUser(no, userNo);
 	}
 	
 	public Map<String, Object> findContentsList(int currentPage){
@@ -40,11 +44,9 @@ public class BoardService {
 		return null;
 	}
 	
-	public void updateContents(BoardVo boardVo) {
-		boardRepository.update(boardVo);
-	}
+//	public BoardVo findContents(Long no, int userNo) {
+//		return null;
+//	}
+//	
 	
-	public void deleteContents(Long no, Long userNo) {
-		boardRepository.deleteByUser(no, userNo);
-	}
 }

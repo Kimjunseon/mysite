@@ -62,11 +62,25 @@ public class BoardController{
 	
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.POST)
 	public String modify(BoardVo boardVo, @PathVariable("no") Long no) {
-		System.out.println("넘버: "+no);
 		boardVo.setNo(no);
 		boardService.updateContents(boardVo);		
 		return "redirect:/board";
 	}
+	
+	@RequestMapping(value="/reply/{no}", method=RequestMethod.GET)
+	public String reply(Model model, @PathVariable("no") Long no) {
+		BoardVo boardVo = boardService.findContents(no);
+		model.addAttribute("contents", boardVo.getContents());
+		return "board/reply";
+	}
+	
+	@RequestMapping(value="/reply/{no}", method=RequestMethod.POST)
+	public String reply(BoardVo boardVo) {
+		boardService.addContents(boardVo);
+		return "redirect:/board";
+	}	
+	
+	// insert 기능 reply 기능을 구현, update도 사용한 적 있으니 이것도 고려/ 최종은 index에 보여야함. newboard은 검토
 	
 }
 	

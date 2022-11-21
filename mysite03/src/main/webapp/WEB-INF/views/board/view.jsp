@@ -46,7 +46,7 @@
 						<c:when test="${empty authUser }">
 						</c:when>
 						<c:otherwise>
-							<a href="${pageContext.request.contextPath }/board/replyform/${no}">답글</a>
+							<a href="${pageContext.request.contextPath }/board/reply/${no}">답글</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
