@@ -42,10 +42,7 @@
 								</c:if>
 							</td>
 						</tr>
-						<tr>
-							<td><img src='${pageContext.request.contextPath }/assets/images/reply.png' /></td>
-							<td><a href="${pageContext.request.contextPath }/board/replyform/${no}=${vo.no }">${vo.contents }</a></td>
-						</tr>
+						<!-- 이 부분에 마지막으로 reply가 존재 -->
 					</c:forEach>
 				</table>
 				

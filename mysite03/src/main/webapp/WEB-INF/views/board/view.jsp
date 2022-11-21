@@ -27,8 +27,6 @@
 						<td>
 							<div class="view-content">
 								${contents}
-								aun: ${authUser.no }
-								un: ${userno }
 							</div>
 						</td>
 					</tr>

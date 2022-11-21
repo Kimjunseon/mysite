@@ -12,7 +12,7 @@
 
 	<select id="findTitle" resultType="boardvo">
 		<![CDATA[
-		select no, user_no, title, contents, order_no
+		select no, user_no as userNo, title, contents
 		  from board
 		 where no=#{no }
 		]]>

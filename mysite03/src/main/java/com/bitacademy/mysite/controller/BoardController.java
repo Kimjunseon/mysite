@@ -28,7 +28,7 @@ public class BoardController{
 		BoardVo boardVo = boardService.findContents(no);
 		model.addAttribute("title", boardVo.getTitle());
 		model.addAttribute("contents", boardVo.getContents());
-		model.addAttribute("userno", boardVo.getUserNo());
+		model.addAttribute("userNo", boardVo.getUserNo());
 		
 		System.out.println(boardVo.getContents());
 		System.out.println(boardVo.getUserNo());
