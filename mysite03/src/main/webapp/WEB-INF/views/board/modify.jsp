@@ -14,7 +14,7 @@
 	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/modify/${no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -28,11 +28,11 @@
 							<td>${contents}</td>
 						</tr>
 						<tr>
-							<td class="label">수정할 제목</td>
+							<td class="label">수정제목</td>
 							<td><input type="text" name="title" value="${boardVo.title }"></td>
 						</tr>
 						<tr>
-							<td class="label">수정할 내용</td>
+							<td class="label">수정내용</td>
 							<td><textarea id="content" name="contents">${boardVo.contents }</textarea></td>
 						</tr>
 					</table>

@@ -65,7 +65,7 @@ public class BoardController{
 		System.out.println("넘버: "+no);
 		boardVo.setNo(no);
 		boardService.updateContents(boardVo);		
-		return "redirect:/board/modify";
+		return "redirect:/board";
 	}
 	
 }
