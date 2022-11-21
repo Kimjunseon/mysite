@@ -23,7 +23,7 @@ public class BoardService {
 	}
 	
 	public BoardVo findContents(Long no) {
-//		boardRepository.updateHit(no);
+		boardRepository.updateHit(no);
 		return boardRepository.findTitle(no);
 	}
 	
