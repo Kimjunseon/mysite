@@ -55,11 +55,14 @@ public class BoardController{
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.GET)
 	public String modify() {
 		return "board/modify";
-		}
+	}
 	
-//	@RequestMapping(value="/modify/{no}", method=RequestMethod.POST)
-//	public String modify() {
-//		//model.addAttribute("userNo", boardVo.getUserNo());
-//		}
+	@RequestMapping(value="/modify/{no}", method=RequestMethod.POST)
+	public String modify(Model model, BoardVo boardVo) {
+		boardService.updateContents();
+		model.addAttribute("userNo", boardVo.getUserNo());
+		return "redirect:/board";
+	}
+	
 }
 	
