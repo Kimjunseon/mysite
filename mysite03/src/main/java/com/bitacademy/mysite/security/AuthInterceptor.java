@@ -1,6 +1,7 @@
+// 설정 실수(spring-servlet에서 exclude-mapping 누락)로 핸들러 타입이 변경이 될 때 캐스팅에러
 package com.bitacademy.mysite.security;
 
-import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		Object handler)
 			throws Exception {
 		
-		// 설정 실수(spring-servlet에서 exclude-mapping 누락)로 핸들러 타입이 변경이 될 때 캐스팅에러
-		// 1. handler 종류확인
+		// 1. handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
 			return true;
 		}
@@ -48,7 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 			return false;
 		}
 
-		// 5. @Auth도 붙어 있고 인증도 되어 있다
+		// 6. @Auth도 붙어 있고 인증도 되어 있다
 		return true;
 	}
 

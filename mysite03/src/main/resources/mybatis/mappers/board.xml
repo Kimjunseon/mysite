@@ -33,6 +33,14 @@
 	]]>
 	</delete>
 	
+	<update id="update" parameterType="boardvo">
+			<![CDATA[
+			update board
+			   set title=#{title }, contents=#{contents }
+			 where no=#{no }
+			]]>
+	</update>
+	
 	<update id="updateHit"  parameterType="boardvo">
 			<![CDATA[
 			update board

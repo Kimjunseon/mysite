@@ -37,7 +37,7 @@
 						<c:when test="${empty authUser }"> 
 						</c:when>
 						<c:when test="${authUser.no == userNo}">
-							<a href="${pageContext.request.contextPath }/board/modify/${no}=${param.no }">글수정</a>
+							<a href="${pageContext.request.contextPath }/board/modify/${no}">글수정</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -46,7 +46,7 @@
 						<c:when test="${empty authUser }">
 						</c:when>
 						<c:otherwise>
-							<a href="${pageContext.request.contextPath }/board/replyform/${no}=${param.no }">답글</a>
+							<a href="${pageContext.request.contextPath }/board/replyform/${no}">답글</a>
 						</c:otherwise>
 					</c:choose>
 				</div>

@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bitacademy.mysite.security.AuthUser;
 import com.bitacademy.mysite.service.BoardService;
 import com.bitacademy.mysite.vo.BoardVo;
+import com.bitacademy.mysite.vo.UserVo;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 @RequestMapping("/board")
@@ -24,14 +28,10 @@ public class BoardController{
 	
 	@RequestMapping(value="/view/{no}")
 	public String view(Model model, @PathVariable("no") Long no) {
-		
 		BoardVo boardVo = boardService.findContents(no);
 		model.addAttribute("title", boardVo.getTitle());
 		model.addAttribute("contents", boardVo.getContents());
 		model.addAttribute("userNo", boardVo.getUserNo());
-		
-		System.out.println(boardVo.getContents());
-		System.out.println(boardVo.getUserNo());
 		return "board/view";
 	}
 	
@@ -53,15 +53,19 @@ public class BoardController{
 	}
 	
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.GET)
-	public String modify() {
+	public String modify(Model model, @PathVariable("no") Long no) {
+		BoardVo boardVo = boardService.findContents(no);
+		model.addAttribute("title", boardVo.getTitle());
+		model.addAttribute("contents", boardVo.getContents());
 		return "board/modify";
 	}
 	
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.POST)
-	public String modify(Model model, BoardVo boardVo) {
-		boardService.updateContents();
-		model.addAttribute("userNo", boardVo.getUserNo());
-		return "redirect:/board";
+	public String modify(BoardVo boardVo, @PathVariable("no") Long no) {
+		System.out.println("넘버: "+no);
+		boardVo.setNo(no);
+		boardService.updateContents(boardVo);		
+		return "redirect:/board/modify";
 	}
 	
 }

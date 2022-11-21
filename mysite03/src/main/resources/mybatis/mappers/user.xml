@@ -35,14 +35,14 @@
 			<when test='password == ""'>
 			<![CDATA[
 			update user
-			   set name=#{name } gender=#{gender }
+			   set name=#{name }, gender=#{gender }
 			 where no=#{no }
 			]]>
 			</when>
 			<otherwise>
 			<![CDATA[
 			update user
-			   set name=#{name }, password=#{password } gender=#{gender }
+			   set name=#{name }, password=#{password }, gender=#{gender }
 			 where no=#{no }
 			]]>
 			</otherwise>

@@ -15,20 +15,25 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-				<input type = "hidden" name = "no" value="${no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value="${title}"></td>
+							<td>${title}</td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>
-								<textarea id="content" name="content">${contents}</textarea>
-							</td>
+							<td>${contents}</td>
+						</tr>
+						<tr>
+							<td class="label">수정할 제목</td>
+							<td><input type="text" name="title" value="${boardVo.title }"></td>
+						</tr>
+						<tr>
+							<td class="label">수정할 내용</td>
+							<td><textarea id="content" name="contents">${boardVo.contents }</textarea></td>
 						</tr>
 					</table>
 					<div class="bottom">

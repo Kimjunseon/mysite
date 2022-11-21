@@ -40,7 +40,8 @@ public class BoardService {
 		return null;
 	}
 	
-	public void updateContents(BoardVo vo) {
+	public void updateContents(BoardVo boardVo) {
+		boardRepository.update(boardVo);
 	}
 	
 	public void deleteContents(Long no, Long userNo) {

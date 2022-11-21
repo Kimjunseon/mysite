@@ -19,9 +19,32 @@ public class BoardRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public List<BoardVo> findAll() {
+		return sqlSession.selectList("board.findAll");
+	}
+	
+	public BoardVo findTitle(Long no) {
+		return sqlSession.selectOne("board.findTitle", no);
+	}
+	
+	
 	public Boolean newBoardInsert(BoardVo vo) {
 		int count = sqlSession.insert("board.newBoardInsert", vo);
 		return count == 1;
+	}
+	
+	public BoardVo deleteByUser(Long no, Long userNo) {
+		return sqlSession.selectOne("board.deleteByUser", no);				
+	}
+	
+	public boolean update(BoardVo vo) {
+		int count = sqlSession.update("board.update", vo);
+		return count == 1;
+	}
+	
+	public boolean updateHit(Long no) {
+		int count = sqlSession.update("board.updateHit", no);
+		return count  == 1;
 	}
 	
 	public Boolean replyInsert(BoardVo vo) {
@@ -61,52 +84,6 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public List<BoardVo> findAll() {
-		return sqlSession.selectList("board.findAll");
-	}
-	
-	public BoardVo deleteByUser(Long no, Long userNo) {
-		return sqlSession.selectOne("board.deleteByUser", no);				
-	}
-	
-	public BoardVo findTitle(Long no) {
-		return sqlSession.selectOne("board.findTitle", no);
-	}
-	
-	public boolean update(String title, String contents, int no) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			String sql = "update board" + 
-			               " set title = ?, contents = ?" +
-					     " where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, title);
-			pstmt.setString(2, contents);
-			pstmt.setInt(3, no);
-			
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("Error : " + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
 	
 	public boolean updateReply(int gno) {
 		boolean result = false;
@@ -142,10 +119,6 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public boolean updateHit(Long no) {
-		int count =sqlSession.update("board.updateHit", no);
-		return count  == 1;
-	}
 	
 	public BoardVo findReplyValue(int no) {
 		BoardVo result = null;
