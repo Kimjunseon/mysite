@@ -2,9 +2,11 @@ package com.bitacademy.mysite.controller;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,20 +33,19 @@ public class GalleryController {
 	
 	@RequestMapping("/upload")
 	public String upload(
-			@RequestParam("comments") GalleryVo galleryVo,
+			GalleryVo galleryVo,
 			@RequestParam("file") MultipartFile multipartFile,
-			Model model) {
+			@RequestParam("comments") String comments) {
 		String url = fileuploadService.restore(multipartFile);
-		System.out.println("url:" + url);
-		
-		model.addAttribute("url", url);
-		
-		galleryService.saveImages(galleryVo.getComments(), model.addAttribute(url));
+		galleryVo.setUrl(url);
+		System.out.println(url);
+		System.out.println(comments);
+		galleryService.saveImages(galleryVo);
 		return "redirect:/gallery";
 	}
 	
 	@RequestMapping("/delete/{no}")
-	public String delete(Long no) { // Long no 내가 넣은 값
+	public String delete(@PathVariable("no") Long no) {
 		galleryService.removeImages(no);
 		return "redirect:/gallery";
 	}	

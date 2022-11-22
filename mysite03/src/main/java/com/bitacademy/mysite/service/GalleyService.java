@@ -19,13 +19,13 @@ public class GalleyService {
 	}
 	
 	// 내가 만든 서비스
-	public void saveImages(GalleryVo galleryVo, Model model) {
-		galleyRepository.saveImage(galleryVo, model);  // 내가 기입한 값
+	public void saveImages(GalleryVo galleryVo) {
+		galleyRepository.insert(galleryVo);  // 내가 기입한 값
 		
 	}
 	
-	public GalleryVo removeImages(Long no) { // Long no 내가 넣은 값
-		return null; // null 내가 넣은 값
+	public void removeImages(Long no) { // Long no 내가 넣은 값
+		galleyRepository.delete(no); // null 내가 넣은 값
 		
 	}
 }

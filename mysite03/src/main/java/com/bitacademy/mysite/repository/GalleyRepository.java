@@ -18,9 +18,13 @@ public class GalleyRepository {
 		return sqlSession.selectList("gallery.findAll");
 	}
 	
-	public Boolean saveImage(GalleryVo vo, Model model) {
-		int count = sqlSession.insert("saveImage", vo, model);
+	public Boolean insert(GalleryVo vo) {
+		int count = sqlSession.insert("gallery.insert", vo);
 		return count == 1;
 	}
-
+	
+	public Boolean delete(Long no) {
+		return sqlSession.selectOne("gallery.delete", no);
+		
+	}
 }
