@@ -21,12 +21,12 @@
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>${contents}</td>
+							<td>${contents }</td>
 						</tr>
 						<tr>
 							<td class="label">답글</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="content">on: ${orderNo } </textarea>
 							</td>
 						</tr>
 					</table>

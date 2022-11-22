@@ -71,11 +71,13 @@ public class BoardController{
 	public String reply(Model model, @PathVariable("no") Long no) {
 		BoardVo boardVo = boardService.findContents(no);
 		model.addAttribute("contents", boardVo.getContents());
+		model.addAttribute("orderNo", boardVo.getOrderNo());
 		return "board/reply";
 	}
 	
 	@RequestMapping(value="/reply/{no}", method=RequestMethod.POST)
-	public String reply(BoardVo boardVo) {
+	public String reply(Model model, BoardVo boardVo, @PathVariable("no") Long no) {
+		boardService.findContents(no);
 		boardService.addContents(boardVo);
 		return "redirect:/board";
 	}	

@@ -27,7 +27,7 @@
 				values (null, '', #{contents }, 0, now(), #{groupNo }, #{orderNo } + 1, #{depth } + 1, #{userNo })
 		 	]]>
 			</when>
-			<when test='title == "reply"'>
+			<when test='"orderNo" >= 1'>
 			<![CDATA[
 				insert
 		  		  into board
