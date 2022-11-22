@@ -6,7 +6,7 @@
 		select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s') as regDate, b.contents
 	      from user a, board b
 	     where a.no = b.user_no
-	  order by b.no, b.group_no desc, b.order_no asc, b.depth desc
+	  order by b.group_no desc, b.order_no asc, b.depth desc
 		]]>
 	</select>
 
@@ -20,11 +20,18 @@
 	
 	<insert id="newBoardInsert" parameterType="boardvo">
 		<choose>
-			<when test='title == "sssdd2"'>
+			<when test='title == "rreply"'>
 			<![CDATA[
 				insert
 		  		  into board
-				values (null, #{title }, #{contents }, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, #{userNo })
+				values (null, '', #{contents }, 0, now(), #{groupNo }, #{orderNo } + 1, #{depth } + 1, #{userNo })
+		 	]]>
+			</when>
+			<when test='title == "reply"'>
+			<![CDATA[
+				insert
+		  		  into board
+				values (null, '', #{contents }, 0, now(), #{groupNo }, (select min(order_no)+1 from board b), 1, #{userNo })
 		 	]]>
 			</when>
 			<otherwise>

@@ -53,6 +53,13 @@
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		    
+		<!-- validation -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.3.Final</version>
+		</dependency>	    
 				
 		<!-- Apache Common DBCP -->
 		<dependency>
@@ -60,7 +67,7 @@
 		    <artifactId>commons-dbcp</artifactId>
 		    <version>1.4</version>
 		</dependency>
-
+	
 		<!-- mariadb jdbc driver -->
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
