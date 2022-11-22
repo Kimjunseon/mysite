@@ -35,9 +35,6 @@ public class FileUploadService {
 			String restoreFilename = generateSaveFilename(extName);
 			Long fileSize = multipartFile.getSize();
 			
-			System.out.println("################" + originalFilename);
-			System.out.println("################" + restoreFilename);
-			System.out.println("################" + fileSize);
 			byte[] data = multipartFile.getBytes();
 			
 			OutputStream os = new FileOutputStream(RESTORE_PATH + "/" + restoreFilename);
