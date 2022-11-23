@@ -15,7 +15,7 @@
 	]]>
 	</insert>
 	
-	<delete id="delete" parameterType="galleryvo">
+	<delete id="delete" parameterType="long">
 	<![CDATA[
 	delete from gallery
 	 where no = #{no }

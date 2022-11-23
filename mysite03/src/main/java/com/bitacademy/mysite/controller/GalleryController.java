@@ -34,12 +34,9 @@ public class GalleryController {
 	@RequestMapping("/upload")
 	public String upload(
 			GalleryVo galleryVo,
-			@RequestParam("file") MultipartFile multipartFile,
-			@RequestParam("comments") String comments) {
+			@RequestParam("file") MultipartFile multipartFile) {
 		String url = fileuploadService.restore(multipartFile);
 		galleryVo.setUrl(url);
-		System.out.println(url);
-		System.out.println(comments);
 		galleryService.saveImages(galleryVo);
 		return "redirect:/gallery";
 	}
