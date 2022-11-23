@@ -31,16 +31,18 @@
 				<when test='depth >= 1'>			
 				<![CDATA[		
 					insert
-		  		  	into board
+		  		  	  into board
 					values (null, '', #{contents }, 0, now(), #{groupNo }, #{orderNo }+1, #{depth }+1, #{userNo })
 		 			]]>
 		 		</when>
-		 		<otherwise>
+		 		<when test='depth == 0'>
 				<![CDATA[		
 					insert
 		  		  	  into board
 					values (null, '', #{contents }, 0, now(), #{groupNo }, (select min(order_no)+1 from board b), 1, #{userNo })
 		 			]]>
+		 		</when>
+		 		<otherwise>
 		 		</otherwise>
 		 		
 		 	</choose>			
@@ -79,13 +81,15 @@
 		     where group_no = #{groupNo } and order_no > #{orderNo }
 			]]>
 			</when>
-			<otherwise>
+			<when test='depth == 0'>
 			<![CDATA[
 			update board
 			   set order_no = order_no + 1
 			 where group_no = #{groupNo } and order_no > 1
 			]]>
-			</otherwise>
+			</when>
+		 	<otherwise>
+		 	</otherwise>
 		</choose>
 	</update>
 
