@@ -14,13 +14,18 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
+	public void addContents(BoardVo boardVo) {
+		boardRepository.newBoardInsert(boardVo);
+	}
+	
+	public void addRelpy(BoardVo boardVo1) {
+		boardRepository.insertReply(boardVo1);
+	}
+	
 	public List<BoardVo> getContentsList() {
 		return boardRepository.findAll();
 	}
 	
-	public void addContents(BoardVo boardVo) {
-		boardRepository.newBoardInsert(boardVo);
-	}
 	
 	public BoardVo findContents(Long no) {
 		boardRepository.updateHit(no);
@@ -35,8 +40,8 @@ public class BoardService {
 		boardRepository.deleteByUser(no, userNo);
 	}
 	
-	public void updateByReply(int groupNo) {
-		boardRepository.updateByReply(groupNo);
+	public void updateByReply(BoardVo boardVo) {
+		boardRepository.updateByReply(boardVo);
 	}
 	
 	public Map<String, Object> findContentsList(int currentPage){
@@ -47,6 +52,7 @@ public class BoardService {
 		// 리스트 가져오기
 		return null;
 	}
+
 	
 //	public BoardVo findContents(Long no, int userNo) {
 //		return null;

@@ -42,6 +42,14 @@
 								</c:if>
 							</td>
 						</tr>
+						<tr>
+							<td style="text-align:left; padding-left:${vo.depth*20 }px">
+							<c:if test="${vo.depth !=0 }">
+								<img src='${pageContext.request.contextPath }/assets/images/reply.png' />
+							</c:if>
+								<a href="board/view/${vo.no }">re: ${vo.title }</a>
+							</td>						
+						</tr>
 						<!-- 이 부분에 마지막으로 reply가 존재 -->
 					</c:forEach>
 				</table>

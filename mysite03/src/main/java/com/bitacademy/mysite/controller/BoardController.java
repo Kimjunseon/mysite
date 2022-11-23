@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitacademy.mysite.security.AuthUser;
 import com.bitacademy.mysite.service.BoardService;
@@ -76,9 +77,32 @@ public class BoardController{
 	}
 	
 	@RequestMapping(value="/reply/{no}", method=RequestMethod.POST)
-	public String reply(Model model, BoardVo boardVo, @PathVariable("groupNo") int groupNo) {
-		boardService.updateByReply(groupNo);
-		boardService.addContents(boardVo);
+	public String reply(
+			Model model,
+			BoardVo boardVo,
+			@AuthUser UserVo authUser,
+			@PathVariable("no") Long no,
+			@RequestParam("contents") String contents
+			) {
+		
+		boardService.updateByReply(boardVo);
+		
+		Long an = authUser.getNo();
+		
+		BoardVo boardVo1 = boardService.findContents(no);
+		
+		Integer userNo = an.intValue();
+		Integer groupNo = boardVo1.getGroupNo();
+		Integer orderNo = boardVo1.getOrderNo();
+		Integer depth = boardVo1.getDepth();
+		
+		boardVo1.setGroupNo(groupNo);
+		boardVo1.setContents(contents);
+		boardVo1.setUserNo(userNo);
+		boardVo1.setOrderNo(orderNo);
+		boardVo1.setDepth(depth);
+		boardService.addRelpy(boardVo1);
+		
 		return "redirect:/board";
 	}	
 	

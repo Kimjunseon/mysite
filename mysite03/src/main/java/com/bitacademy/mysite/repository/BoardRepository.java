@@ -33,8 +33,8 @@ public class BoardRepository {
 		return count == 1;
 	}
 	
-	public Boolean replyInsert(BoardVo vo) {
-		int count = sqlSession.insert("board.replyInsert", vo);
+	public Boolean insertReply(BoardVo boardVo1) {
+		int count = sqlSession.insert("board.insertReply", boardVo1);
 		return count == 1;
 	}
 	
@@ -52,11 +52,13 @@ public class BoardRepository {
 		return count  == 1;
 	}
 	
-	public Boolean updateByReply(int groupNo) {
-		int count = sqlSession.update("board.updateByReply", groupNo);
+	public Boolean updateByReply(BoardVo boardvo) {
+		int count = sqlSession.update("board.updateByReply", boardvo);
 		return count == 1;
 	}
 		
+
+	
 	
 	public BoardVo findReplyValue(int no) {
 		BoardVo result = null;
@@ -124,6 +126,5 @@ public class BoardRepository {
 		
 		return conn;
 	}
-
 
 }
