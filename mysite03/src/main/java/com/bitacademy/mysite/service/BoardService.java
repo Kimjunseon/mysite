@@ -35,6 +35,10 @@ public class BoardService {
 		boardRepository.deleteByUser(no, userNo);
 	}
 	
+	public void updateByReply(int groupNo) {
+		boardRepository.updateByReply(groupNo);
+	}
+	
 	public Map<String, Object> findContentsList(int currentPage){
 		// view의 페이징을 처리하기 위한 데이터의 값 계산
 		int beginPage = 0;

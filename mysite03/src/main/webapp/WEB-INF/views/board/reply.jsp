@@ -26,7 +26,7 @@
 						<tr>
 							<td class="label">답글</td>
 							<td>
-								<textarea id="content" name="content">on: ${orderNo } </textarea>
+								<textarea id="content" name="content"> </textarea>
 							</td>
 						</tr>
 					</table>

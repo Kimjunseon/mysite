@@ -33,92 +33,30 @@ public class BoardRepository {
 		return count == 1;
 	}
 	
+	public Boolean replyInsert(BoardVo vo) {
+		int count = sqlSession.insert("board.replyInsert", vo);
+		return count == 1;
+	}
+	
 	public BoardVo deleteByUser(Long no, Long userNo) {
 		return sqlSession.selectOne("board.deleteByUser", no);				
 	}
 	
-	public boolean update(BoardVo vo) {
+	public Boolean update(BoardVo vo) {
 		int count = sqlSession.update("board.update", vo);
 		return count == 1;
 	}
 	
-	public boolean updateHit(Long no) {
+	public Boolean updateHit(Long no) {
 		int count = sqlSession.update("board.updateHit", no);
 		return count  == 1;
 	}
 	
-	public Boolean replyInsert(BoardVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			String sql = "insert into board values (null, '', ?, 0, now(), ?, 1, 1, ?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getContents());
-			pstmt.setInt(2, vo.getGroupNo());
-			pstmt.setInt(3, vo.getUserNo());
-			
-			int count = pstmt.executeUpdate();
-			
-			//5. 결과 처리
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+	public Boolean updateByReply(int groupNo) {
+		int count = sqlSession.update("board.updateByReply", groupNo);
+		return count == 1;
 	}
-	
-	
-	public boolean updateReply(int gno) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 		
-		try {
-			conn = getConnection();
-			String sql = "update board" + 
-			               " set order_no = order_no + 1" +
-					     " where group_no = ? and order_no > 1";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, gno);
-
-			
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("Error : " + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-	
 	
 	public BoardVo findReplyValue(int no) {
 		BoardVo result = null;

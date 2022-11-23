@@ -67,4 +67,13 @@
 			]]>
 	</update>
 
+	<update id="updateByReply"  parameterType="int">
+			<![CDATA[
+			update board
+			   set onder_no = order_no + 1
+			 where group_no = #{groupNo } and order_no > 1
+			]]>
+	</update>
+
+
 </mapper>

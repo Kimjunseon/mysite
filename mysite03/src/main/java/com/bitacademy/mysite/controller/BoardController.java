@@ -76,8 +76,8 @@ public class BoardController{
 	}
 	
 	@RequestMapping(value="/reply/{no}", method=RequestMethod.POST)
-	public String reply(Model model, BoardVo boardVo, @PathVariable("no") Long no) {
-		boardService.findContents(no);
+	public String reply(Model model, BoardVo boardVo, @PathVariable("groupNo") int groupNo) {
+		boardService.updateByReply(groupNo);
 		boardService.addContents(boardVo);
 		return "redirect:/board";
 	}	
