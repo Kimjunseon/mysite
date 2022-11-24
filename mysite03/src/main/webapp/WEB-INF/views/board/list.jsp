@@ -14,10 +14,6 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
-					<input type="submit" value="찾기">
-				</form>
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
@@ -29,9 +25,10 @@
 					</tr>
 					
 					<c:set var='count' value='${fn:length(list) }' />
-					<c:forEach items='${list }' var='vo' varStatus='status'>				
+					<c:forEach items='${list }' var='vo' varStatus='status'>
+					<c:if test="${vo.depth == 0  }">				
 						<tr>
-							<td>${count-status.index }</td>
+							<td>${vo.groupNo }</td>
 							<td><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
@@ -42,15 +39,43 @@
 								</c:if>
 							</td>
 						</tr>
+						</c:if>
 						<tr>
+						<c:if test="${vo.depth == 1  }">
 							<td>
-							<c:if test="${vo.depth !=0 }">
 								<img src='${pageContext.request.contextPath }/assets/images/reply.png' />
-							</c:if>
+							</td>
+							<td>
 								<a href="board/view/${vo.no }">re: ${vo.title }</a>
-							</td>						
+							</td>
+							<td>${vo.name }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>	
+							<td>
+								<c:if test="${authUser.name eq vo.name }">
+									<a href="${pageContext.request.contextPath }/board/delete/${vo.no }" class="del">삭제</a>
+								</c:if>
+							</td>
+							</c:if>			
 						</tr>
-						<!-- 이 부분에 마지막으로 reply가 존재 -->
+						<tr>
+						<c:if test="${vo.depth > 1  }">
+							<td style="text-align: right; padding=left: 20px">
+								<img src='${pageContext.request.contextPath }/assets/images/reply.png' />
+							</td>
+							<td>
+								<a href="board/view/${vo.no }">re: ${vo.title }</a>
+							</td>
+							<td>${vo.name }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>	
+							<td>
+								<c:if test="${authUser.name eq vo.name }">
+									<a href="${pageContext.request.contextPath }/board/delete/${vo.no }" class="del">삭제</a>
+								</c:if>
+							</td>
+						</c:if>
+						</tr>
 					</c:forEach>
 				</table>
 				

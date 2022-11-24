@@ -3,7 +3,7 @@
 <mapper namespace="board">
 	<select id="findAll" resultType="boardvo">
 		<![CDATA[
-		select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s') as regDate, b.contents
+		select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s') as regDate, b.contents, group_no as groupNo, depth, order_no as orderNo
 	      from user a, board b
 	     where a.no = b.user_no
 	  order by b.group_no desc, b.order_no asc, b.depth desc
@@ -32,14 +32,14 @@
 				<![CDATA[		
 					insert
 		  		  	  into board
-					values (null, '', #{contents }, 0, now(), #{groupNo }, #{orderNo }+1, #{depth }+1, #{userNo })
+					values (null, #{title }, #{contents }, 0, now(), #{groupNo }, #{orderNo }+1, #{depth }+1, #{userNo })
 		 			]]>
 		 		</when>
 		 		<when test='depth == 0'>
 				<![CDATA[		
 					insert
 		  		  	  into board
-					values (null, '', #{contents }, 0, now(), #{groupNo }, (select min(order_no)+1 from board b), 1, #{userNo })
+					values (null, #{title }, #{contents }, 0, now(), #{groupNo }, (select min(order_no)+1 from board b), 1, #{userNo })
 		 			]]>
 		 		</when>
 		 		<otherwise>

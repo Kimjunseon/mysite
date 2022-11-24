@@ -93,11 +93,13 @@ public class BoardController{
 		
 		BoardVo boardVo1 = boardService.findContents(no);
 		
+		String title = boardVo1.getTitle();
 		Integer userNo = an.intValue();
 		Integer groupNo = boardVo1.getGroupNo();
 		Integer orderNo = boardVo1.getOrderNo();
 		Integer depth = boardVo1.getDepth();
 		
+		boardVo1.setTitle(title);
 		boardVo1.setGroupNo(groupNo);
 		boardVo1.setContents(contents);
 		boardVo1.setUserNo(userNo);
