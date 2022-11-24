@@ -43,9 +43,8 @@
 	<!-- Common Error Page -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB_INF/views/error/500.jsp</location>
+		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
-	
 	
 	<!-- Welcome File List -->	
 	<welcome-file-list>

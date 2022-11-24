@@ -12,23 +12,6 @@
 	<!-- auto proxy -->
 	<aop:aspectj-autoproxy />
 	
-	<mvc:annotation-driven/>
-	<!-- MVC Resource Mapping -->
-	<mvc:resources mapping="/gallery/images/**" location="file:/mysite-uploads/" />
-	
-	<!-- Multipart Resolver -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	
-		<!-- 최대업로드 가능한 바이트크기 -->
-		<property name="maxUploadSize" value="52428800" />
-		
-		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
-		<!-- property name="maxInMemorySize" value="52428800" /-->
-	
-		<!-- defaultEncoding -->
-		<property name="defaultEncoding" value="utf-8" />
-	</bean>
-	
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<!-- Argument Resolvers -->
@@ -77,6 +60,19 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!-- MVC Resources Mapping -->
+	<mvc:resources mapping="/gallery/images/**" location="file:/mysite-uploads/" />
+
+	<!-- Mutilpart Resolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	
 	<!-- Annotation Configuration: Auto(자동) Bean(빈) scanning(스캐닝) -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.bitacademy.mysite.controller, com.bitacademy.mysite.exception" />
