@@ -1,4 +1,3 @@
-// 설정 실수(spring-servlet에서 exclude-mapping 누락)로 핸들러 타입이 변경이 될 때 캐스팅에러
 package com.bitacademy.mysite.security;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +47,15 @@ public class AuthInterceptor implements HandlerInterceptor {
 			return false;
 		}
 
-		// 6. @Auth도 붙어 있고 인증도 되어 있다
+		// 6. role(권한) 체크하기 "user", "admin"
+		String role = auth.role();
+		String authUserRole = authUser.getRole();
+		if("admin".equals(role) && "user".equals(authUserRole)) {
+			response.sendRedirect(request.getContextPath());
+			return false;
+		}
+		
+		// 7. @Auth도 붙어 있고 인증도 되어 있고 권한도 있음
 		return true;
 	}
-
 }

@@ -85,7 +85,9 @@ public class BoardController{
 			@RequestParam("contents") String contents
 			) {
 		
-		boardService.updateByReply(boardVo);
+		BoardVo boardVo2 = boardService.findContents(no);
+		System.out.println("자바 : " + boardVo2);
+		boardService.updateByReply(boardVo2);
 		
 		Long an = authUser.getNo();
 		

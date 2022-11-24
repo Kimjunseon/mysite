@@ -43,7 +43,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:left; padding-left:${vo.depth*20 }px">
+							<td>
 							<c:if test="${vo.depth !=0 }">
 								<img src='${pageContext.request.contextPath }/assets/images/reply.png' />
 							</c:if>
