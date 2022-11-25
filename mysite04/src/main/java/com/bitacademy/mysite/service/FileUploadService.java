@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +15,11 @@ import com.bitacademy.mysite.exception.FileUploadServiceException;
 
 @Service
 public class FileUploadService {
-	private static String RESTORE_PATH = "/mysite-uploads";
-	private static String URL_BASE = "/gallery/images";
-	
+	@Autowired
+	private Environment env;	
 	
 	public String restore(MultipartFile multipartFile) throws FileUploadServiceException {
+		
 		String url = null;
 		
 		try {
@@ -25,7 +27,7 @@ public class FileUploadService {
 				return url;
 			}
 			
-			File restoreDirectory = new File(RESTORE_PATH);
+			File restoreDirectory = new File(env.getProperty("fileupload.resourceMapping"));
 			if(!restoreDirectory.exists()) {
 				restoreDirectory.mkdirs();
 			}
@@ -37,11 +39,11 @@ public class FileUploadService {
 			
 			byte[] data = multipartFile.getBytes();
 			
-			OutputStream os = new FileOutputStream(RESTORE_PATH + "/" + restoreFilename);
+			OutputStream os = new FileOutputStream(env.getProperty("fileupload.resourceMapping") + "/" + restoreFilename);
 			os.write(data);
 			os.close();
 			
-			url = URL_BASE + "/" + restoreFilename;
+			url = env.getProperty("fileupload.uploadLocation") + "/" + restoreFilename;
 		} catch (IOException e) {
 			throw new FileUploadServiceException(e.toString());
 		}

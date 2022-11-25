@@ -110,7 +110,5 @@ public class BoardController{
 		return "redirect:/board";
 	}	
 	
-	// insert 기능 reply 기능을 구현, update도 사용한 적 있으니 이것도 고려/ 최종은 index에 보여야함. newboard은 검토
-	
 }
 	
