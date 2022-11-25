@@ -1,0 +1,74 @@
+[mysite04]
+Root Application Context
+	applicationContext.xml ->
+
+[src/main/java]
+com.bitacademy.mysite.config
+	| - AppConfig
+	| - WebConfig
+
+com.bitacademy.mysite.config.app
+	| - DBConfig
+	| - MyBatisConfig
+
+com.bitacademy.mysite.config.web
+	| - MVCConfig
+	| - SecurityConfig
+	| - FileuploadConfig
+	| - MessageConfig
+
+[src/main/resource]
+com.bitacademy.mysite.config.app
+	| - jdbc.properties
+
+com.bitacademy.mysite.config.app.mybatis
+	| - configuration.xml
+
+com.bitacademy.mysite.config.app.mybatis.mapper
+	| - user.xml
+	| - board.xml
+	| - ...
+	
+com.bitacademy.mysite.config.web
+	| - 
+
+
+	
+	
+com
+   | - bitacademy
+	| - /mysite
+		| - /config
+			| - Appconfig.class
+			| - Webconfig.class
+			| - /web
+			 	| - 
+			| - /app
+				| - DBConfig.class
+				| - MyBatisConfig.class
+				| - jdbc.class
+				| - mybatis
+					| - mappers
+						| - board.xml
+						| - configuration.xml
+						| - gallery.xml
+						| - guestbook.xml
+						| - user.xml
+						| - board.xml
+
+
+
+Web Application Context
+	spring-servlet.xml ->	com.bitacademy.mysite.config.Webconfig
+					com.bitacademy.mysite.config.web.MvcConfig
+					com.bitacademy.mysite.config.web.MessageConfig
+					com.bitacademy.mysite.config.web.FileuploadConfig
+
+new ClassPathXmlWebApplicationContext();
+
+(Contextclass)
+org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+
+(contextConfigLocation)
+com.bitacademy.mysite.config.Appconfig
+
