@@ -27,7 +27,7 @@ public class BoardController{
 		return "board/list";
 	}
 	
-	@RequestMapping(value="/view/{no}")
+	@RequestMapping("/view/{no}")
 	public String view(Model model, @PathVariable("no") Long no) {
 		BoardVo boardVo = boardService.findContents(no);
 		model.addAttribute("title", boardVo.getTitle());
