@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class MVCConfig implements WebMvcConfigurer {
 	
-	// ViewResolver
+	// ViewResolver 
 	@Bean
 	public ViewResolver internalResourceViewResolver () {
 		InternalResourceViewResolver viweResolver = new InternalResourceViewResolver();
