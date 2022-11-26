@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="findAll" resultType="boardvo">
+		<![CDATA[
+		select b.no, b.title, a.name, b.hit, date_format(b.reg_date, '%Y/%m/%d %H:%i:%s') as regDate, b.contents, group_no as groupNo, depth, order_no as orderNo
+	      from user a, board b
+	     where a.no = b.user_no
+	  order by b.group_no desc, b.order_no asc, b.depth desc
+		]]>
+	</select>
+
+	<select id="findTitle" resultType="boardvo">
+		<![CDATA[
+		select no, user_no as userNo, title, contents, group_no as groupNo, depth, order_no as orderNo
+		  from board
+		 where no=#{no }
+		]]>
+	</select>
+	
+	<insert id="newBoardInsert" parameterType="boardvo">
+			<![CDATA[
+				insert
+		  		  into board
+				values (null, #{title }, #{contents }, 0, now(), (select ifnull(max(group_no)+1, 1) from board b), 1, 0, #{userNo })
+		 	]]>			
+	</insert>	
+
+	<insert id="insertReply" parameterType="boardvo">
+			<choose>
+				<when test='depth >= 1'>			
+				<![CDATA[		
+					insert
+		  		  	  into board
+					values (null, #{title }, #{contents }, 0, now(), #{groupNo }, #{orderNo }+1, #{depth }+1, #{userNo })
+		 			]]>
+		 		</when>
+		 		<when test='depth == 0'>
+				<![CDATA[		
+					insert
+		  		  	  into board
+					values (null, #{title }, #{contents }, 0, now(), #{groupNo }, (select min(order_no)+1 from board b), 1, #{userNo })
+		 			]]>
+		 		</when>
+		 		<otherwise>
+		 		</otherwise>
+		 		
+		 	</choose>			
+	</insert>	
+
+
+	<delete id="deleteByUser" parameterType="boardvo">
+	<![CDATA[
+	delete from board
+	 where no = #{no }
+	]]>
+	</delete>
+	
+	<update id="update" parameterType="boardvo">
+			<![CDATA[
+			update board
+			   set title=#{title }, contents=#{contents }
+			 where no=#{no }
+			]]>
+	</update>
+	
+	<update id="updateHit"  parameterType="boardvo">
+			<![CDATA[
+			update board
+			   set hit = hit + 1
+			 where no=#{no }
+			]]>
+	</update>
+
+	<update id="updateByReply"  parameterType="boardvo">
+		<choose>
+			<when test='depth >= 1'>
+			<![CDATA[
+			update board
+			   set order_no = order_no + 1
+		     where group_no = #{groupNo } and order_no > #{orderNo }
+			]]>
+			</when>
+			<when test='depth == 0'>
+			<![CDATA[
+			update board
+			   set order_no = order_no + 1
+			 where group_no = #{groupNo } and order_no > 1
+			]]>
+			</when>
+		 	<otherwise>
+		 	</otherwise>
+		</choose>
+	</update>
+
+
+</mapper>
