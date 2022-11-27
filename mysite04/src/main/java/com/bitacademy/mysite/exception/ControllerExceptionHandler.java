@@ -1,3 +1,4 @@
+
 package com.bitacademy.mysite.exception;
 
 import java.io.PrintWriter;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ContorollerExceptionHandler {
-	private static final Log Logger = LogFactory.getLog(ContorollerExceptionHandler.class);
+public class ControllerExceptionHandler {
+	private static final Log Logger = LogFactory.getLog(ControllerExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
 	public String HandlerException(Model model, Exception e) {

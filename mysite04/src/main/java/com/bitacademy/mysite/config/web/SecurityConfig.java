@@ -16,7 +16,6 @@ import com.bitacademy.mysite.security.LogoutInterceptor;
 
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
-	
 	// Argument Resolvers
 	@Bean
 	public HandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {
@@ -28,42 +27,37 @@ public class SecurityConfig implements WebMvcConfigurer {
 		resolvers.add(authUserHandlerMethodArgumentResolver());
 	}
 	
-	
 	// Interceptors
-	
 	@Bean
 	public HandlerInterceptor loginInterceptor() {
-		return new LoginInterceptor();
+		return new LoginInterceptor(); 
 	}
-	
+
 	@Bean
 	public HandlerInterceptor logoutInterceptor() {
-		return new LogoutInterceptor();
+		return new LogoutInterceptor(); 
 	}
-	
+
 	@Bean
 	public HandlerInterceptor authInterceptor() {
-		return new AuthInterceptor();
+		return new AuthInterceptor(); 
 	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry
-				.addInterceptor(loginInterceptor())
-				.addPathPatterns("/user/auth");
+			.addInterceptor(loginInterceptor())
+			.addPathPatterns("/user/auth");
 		
 		registry
 			.addInterceptor(logoutInterceptor())
 			.addPathPatterns("/user/logout");
 		
 		registry
-			.addInterceptor(authInterceptor())
-			.addPathPatterns("/**")
-			.excludePathPatterns("/user/auth")
-			.excludePathPatterns("/user/logout")
-			.excludePathPatterns("/assets/**");
+		.addInterceptor(authInterceptor())
+		.addPathPatterns("/**")
+		.excludePathPatterns("/user/auth")
+		.excludePathPatterns("/user/logout")
+		.excludePathPatterns("/assets/**");
 	}
-	
-	
-	
 }

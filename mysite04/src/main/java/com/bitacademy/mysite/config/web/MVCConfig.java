@@ -11,24 +11,21 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-public class MVCConfig implements WebMvcConfigurer {
-	
-	// ViewResolver 
+public class MVCConfig implements WebMvcConfigurer {	
+	// View Resolver
 	@Bean
-	public ViewResolver internalResourceViewResolver () {
-		InternalResourceViewResolver viweResolver = new InternalResourceViewResolver();
-		viweResolver.setViewClass(JstlView.class);
-		viweResolver.setPrefix("/WEB-INF/views/");
-		viweResolver.setSuffix(".jsp");
-		return viweResolver;
+	public ViewResolver internalResourceViewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".jsp");
+		
+		return viewResolver;
 	}
-	
 	
 	// 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		WebMvcConfigurer.super.configureDefaultServletHandling(configurer);
+		configurer.enable();
 	}
-	
-	
 }

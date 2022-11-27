@@ -13,23 +13,23 @@ import com.bitacademy.mysite.service.GuestbookService;
 import com.bitacademy.mysite.vo.GuestbookVo;
 
 @Controller
-@RequestMapping("/gb")
+@RequestMapping("/guestbook")
 public class GuestbookController {
 	
 	@Autowired
 	private GuestbookService guestbookService;
 
-	@RequestMapping({"", "/list"})
+	@RequestMapping("")
 	public String index(Model model) {
 		List<GuestbookVo> list  = guestbookService.getContentsList();
 		model.addAttribute("list", list);
-		return "guestbook/list";
+		return "guestbook/index";
 	}
 	
 	@RequestMapping("/add")
 	public String add(GuestbookVo vo) {
 		guestbookService.addContents(vo);
-		return "redirect:/gb";
+		return "redirect:/guestbook";
 	}
 	
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
@@ -43,6 +43,6 @@ public class GuestbookController {
 		@PathVariable("no") Long no,
 		@RequestParam(value="password", required=true, defaultValue="") String password) {
 		guestbookService.deleteContents(no, password);
-		return "redirect:/gb";
+		return "redirect:/guestbook";
 	}	
 }

@@ -12,21 +12,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bitacademy.mysite.security.Auth;
 import com.bitacademy.mysite.service.FileUploadService;
-import com.bitacademy.mysite.service.GalleyService;
+import com.bitacademy.mysite.service.GalleryService;
 import com.bitacademy.mysite.vo.GalleryVo;
 
 @Controller
 @RequestMapping("/gallery")
 public class GalleryController {
 	@Autowired
-	private GalleyService galleryService;
+	private GalleryService galleryService;
 	
 	@Autowired
 	private FileUploadService fileuploadService;
 	
 	@RequestMapping("")
 	public String index(Model model) {
-		List<GalleryVo> list = galleryService.getImagesList();
+		List<GalleryVo> list = galleryService.getImageList();
 		model.addAttribute("list", list);
 
 		return "gallery/index";

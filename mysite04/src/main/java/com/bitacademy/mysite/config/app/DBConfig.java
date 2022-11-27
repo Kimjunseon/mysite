@@ -1,3 +1,4 @@
+
 package com.bitacademy.mysite.config.app;
 
 import javax.sql.DataSource;
@@ -18,15 +19,14 @@ public class DBConfig {
 	
 	@Bean
 	public DataSource basicDataSource() {
-		BasicDataSource dataSource =  new BasicDataSource();
+		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));
 		dataSource.setUsername(env.getProperty("jdbc.username"));
 		dataSource.setPassword(env.getProperty("jdbc.password"));
-		dataSource.setInitialSize(env.getProperty("jdbc.initialSize", Integer.class));
+		dataSource.setInitialSize(env.getProperty("jdbc.initalSize", Integer.class));
 		dataSource.setMaxActive(env.getProperty("jdbc.maxActive", Integer.class));
 		
 		return dataSource;
-		
 	}
 }

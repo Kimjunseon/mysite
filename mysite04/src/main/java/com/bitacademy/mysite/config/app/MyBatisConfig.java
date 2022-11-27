@@ -1,3 +1,4 @@
+
 package com.bitacademy.mysite.config.app;
 
 import javax.sql.DataSource;
@@ -12,13 +13,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MyBatisConfig {
-	
 	@Bean
-	public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource, ApplicationContext applicationContext) throws Exception{
+	public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource);
-		sqlSessionFactory.setConfigLocation(applicationContext.getResource("classpath:com/bitacademy/mysite/config/app/mybatis/mappers/configuration.xml"));
-				
+		sqlSessionFactory.setConfigLocation(applicationContext.getResource("classpath:com/bitacademy/mysite/config/app/mybatis/configuration.xml"));
+
 		return sqlSessionFactory.getObject();
 	}
 	

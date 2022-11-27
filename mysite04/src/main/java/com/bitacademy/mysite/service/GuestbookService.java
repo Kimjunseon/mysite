@@ -1,6 +1,6 @@
 package com.bitacademy.mysite.service;
 
-import java.util.List;  
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,9 @@ public class GuestbookService {
 	}
 
 	public void addContents(GuestbookVo vo) {
+		System.out.println(vo);
 		guestbookRepository.insert(vo);
+		System.out.println(vo);
 	}
 	
 }

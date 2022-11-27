@@ -10,16 +10,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @Configuration
 @PropertySource("classpath:com/bitacademy/mysite/config/web/fileupload.properties")
-
-public class FileuploadConfig implements WebMvcConfigurer {
+public class FileUploadConfig implements WebMvcConfigurer {
 	
 	@Autowired
 	private Environment env;
 	
-	// MultipartResolver
+	// Multipart Resolver
 	@Bean
 	public MultipartResolver commonsMultipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -33,8 +31,9 @@ public class FileuploadConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
-			.addResourceHandler(env.getProperty("fileupload.resourceMapping")+ "/**")
-			.addResourceLocations(env.getProperty("fileupload.uploadLocation") + "/");
+			.addResourceHandler(env.getProperty("fileupload.resourceMapping") + "/**")
+			.addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation") + "/");
 	}
+	
 	
 }

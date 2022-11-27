@@ -15,11 +15,11 @@ import com.bitacademy.mysite.exception.FileUploadServiceException;
 
 @Service
 public class FileUploadService {
+
 	@Autowired
-	private Environment env;	
+	private Environment env;
 	
 	public String restore(MultipartFile multipartFile) throws FileUploadServiceException {
-		
 		String url = null;
 		
 		try {
@@ -37,6 +37,9 @@ public class FileUploadService {
 			String restoreFilename = generateSaveFilename(extName);
 			Long fileSize = multipartFile.getSize();
 			
+			System.out.println("################" + originalFilename);
+			System.out.println("################" + restoreFilename);
+			System.out.println("################" + fileSize);
 			byte[] data = multipartFile.getBytes();
 			
 			OutputStream os = new FileOutputStream(env.getProperty("fileupload.resourceMapping") + "/" + restoreFilename);
