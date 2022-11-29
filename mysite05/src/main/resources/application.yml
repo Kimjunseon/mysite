@@ -12,6 +12,7 @@ spring:
    # 로케이션은 여러 개 등록가능하나 패턴은 1개 밖이 안됌
    mvc:
       static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
       view:
          prefix: /WEB-INF/views/
          suffix: .jsp
