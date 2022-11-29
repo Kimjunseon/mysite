@@ -9,13 +9,20 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
 	private static final Log Logger = LogFactory.getLog(ControllerExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
+	// 404 에러처리
 	public String HandlerException(Model model, Exception e) {
+		if(e instanceof NoHandlerFoundException) {
+			return "error/44";
+		}
+		
+		// 500 에러처리
 		// 로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
