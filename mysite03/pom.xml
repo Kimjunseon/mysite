@@ -148,7 +148,7 @@
 				<version>3.3.2</version>
 			</plugin>
 			<plugin>
-				<groupId>org.aphache.tomcat.maven</groupId>
+				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
@@ -157,5 +157,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>	
+	</build>
+	
+		
 </project>
