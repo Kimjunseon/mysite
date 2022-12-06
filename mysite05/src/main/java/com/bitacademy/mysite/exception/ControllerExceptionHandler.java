@@ -16,13 +16,13 @@ public class ControllerExceptionHandler {
 	private static final Log Logger = LogFactory.getLog(ControllerExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
-	// 404 에러처리
 	public String HandlerException(Model model, Exception e) {
+		// 404Error 처리
 		if(e instanceof NoHandlerFoundException) {
-			return "error/44";
+			return "error/404";
 		}
 		
-		// 500 에러처리
+		// 500 Error 처리
 		// 로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
