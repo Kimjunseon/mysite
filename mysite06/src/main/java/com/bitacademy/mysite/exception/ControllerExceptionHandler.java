@@ -19,7 +19,7 @@ public class ControllerExceptionHandler {
 	// 404 에러처리
 	public String HandlerException(Model model, Exception e) {
 		if(e instanceof NoHandlerFoundException) {
-			return "error/44";
+			return "error/404";
 		}
 		
 		// 500 에러처리
