@@ -37,10 +37,12 @@ public class GalleryController {
 	public String upload(
 		GalleryVo galleryVo,
 		@RequestParam("file") MultipartFile multipartFile) {
+		System.out.println("vo" + galleryVo);
 		String url = fileuploadService.restore(multipartFile);
 		galleryVo.setUrl(url);
 		
 		galleryService.saveImages(galleryVo);
+		System.out.println("vo" + galleryVo);
 		return "redirect:/gallery";
 	}
 	
