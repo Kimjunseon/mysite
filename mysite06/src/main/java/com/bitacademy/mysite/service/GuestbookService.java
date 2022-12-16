@@ -13,6 +13,10 @@ public class GuestbookService {
 	@Autowired
 	private GuestbookRepository guestbookRepository;
 	
+	public List<GuestbookVo> getContentsList(Long startNo) {
+		return guestbookRepository.findAll(startNo);
+	}
+	
 	public List<GuestbookVo> getContentsList() {
 		return guestbookRepository.findAll();
 	}
@@ -26,5 +30,7 @@ public class GuestbookService {
 		guestbookRepository.insert(vo);
 		System.out.println(vo);
 	}
+
+
 	
 }
